@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import SlDrawer from '@shoelace-style/shoelace/dist/react/drawer/index.js';
-import { CustomButton } from './ui/CustomButton';
+import { CustomButton } from './CustomButton';
 
-export const Prueba = () => {
+export const Drawer = () => {
    const [open, setOpen] = useState(false);
 
    const size = window.innerWidth < 600 ? "100vw" : "60vw"

@@ -1,0 +1,14 @@
+---
+import { CustomButton } from "./ui/CustomButton";
+---
+
+<header
+  class="bg-[url('/portadaMobile.avif')] sm:bg-[url('/portadaTablet.avif')] lg:bg-[url('/portada.avif')] bg-cover bg-no-repeat bg-top lg:bg-center h-[calc(100dvh-100px)]"
+>
+  <div
+    class="absolute bottom-0 left-0 w-full md:w-1/2 h-[30%] flex max-md:flex-col gap-5 justify-center md:justify-around items-center px-10"
+  >
+    <CustomButton text="Contáctanos" className="w-full" link href="https://wa.me/573148851367"/>
+    <CustomButton text="Servicios" className="w-full" variant="btn-3" link href="/services"/>
+  </div>
+</header>

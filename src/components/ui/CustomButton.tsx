@@ -3,7 +3,9 @@ interface Props {
   className?: string;
   action?: () => void;
   type?: "button" | "submit" | "reset";
-  variant?: "btn-1" | "btn-2"
+  variant?: "btn-1" | "btn-2" | "btn-3";
+  link?: boolean;
+  href?: string;
 }
 
 export const CustomButton = ({
@@ -11,9 +13,15 @@ export const CustomButton = ({
   action,
   text = "Aceptar",
   type = "button",
-  variant = "btn-1"
+  variant = "btn-1",
+  link = false,
+  href = "#",
 }: Props) => {
-  return (
+  return link ? (
+    <a href={href} className={`${variant} ${className} text-center`} target="_blank">
+      {text}
+    </a>
+  ) : (
     <button type={type} className={`${variant} ${className}`} onClick={action}>
       {text}
     </button>
