@@ -5,7 +5,7 @@ import { Diagnostic } from "../assets/icons";
 ---
 
 <section
-  id="experience-section"
+  id="experience"
   class="flex flex-col gap-10 min-h-[70dvh] p-10 md:p-16 bg-gradient-to-br from-primary to-secondary opacity-0 transition-opacity duration-1000"
 >
   <div
@@ -34,22 +34,3 @@ import { Diagnostic } from "../assets/icons";
     </div>
   </div>
 </section>
-
-<!-- ANIMATION FADE IN -->
-<script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const el = document.getElementById("experience-section");
-    if (el) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            el.classList.add("opacity-100");
-            observer.disconnect();
-          }
-        },
-        { threshold: 0.1 }
-      );
-      observer.observe(el);
-    }
-  });
-</script>

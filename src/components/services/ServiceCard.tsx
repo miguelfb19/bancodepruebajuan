@@ -14,10 +14,20 @@ export const ServiceCard = ({ service }: Props) => {
     <>
       <SlDialog
         id="dialog"
-        label={name}
+        noHeader
         open={openModal}
         onSlAfterHide={() => setOpenModal(false)}
+        style={{ "--width": "50rem" } as React.CSSProperties}
       >
+        <h3 className="font-bold text-2xl mb-5 text-center">{name}</h3>
+        <div className="h-96 w-full rounded-xl">
+          <img
+            src={picture || "/portadaMobile.avif"}
+            alt={`imagen de servicio ${name}`}
+            loading="lazy"
+            className="w-full h-full object-cover rounded-xl"
+          />
+        </div>
         <div className="flex flex-col gap-10">
           {content}
           <CustomButton
@@ -35,15 +45,21 @@ export const ServiceCard = ({ service }: Props) => {
         className="flex flex-col justify-between pb-5 gap-5 rounded-2xl border-2 border-primary shadow-lg shadow-tertiary cursor-pointer hover:scale-[102%] hover:shadow-xl transition-all duration-300"
         onClick={() => setOpenModal(true)}
       >
-        <div className="max-h-48 overflow-hidden rounded-t-xl">
+        <div className="flex flex-col gap-3 overflow-hidden">
           <img
             src={picture || "/portadaMobile.avif"}
             alt={`imagen de servicio ${name}`}
             loading="lazy"
-            className="w-full h-full object-fill"
+            className="max-w-full h-48 object-cover rounded-t-xl"
           />
+
+          <p className="mx-3 text-center whitespace-pre-line text-2xl font-semibold text-primary">
+            {name}
+          </p>
+          <p className="mx-3 text-center whitespace-pre-line text-sm text-primary">
+            {text}
+          </p>
         </div>
-        <p className="mx-3 text-center whitespace-pre-line text-2xl font-semibold text-primary">{name}</p>
         <CustomButton
           text="Detalles"
           action={() => setOpenModal(true)}

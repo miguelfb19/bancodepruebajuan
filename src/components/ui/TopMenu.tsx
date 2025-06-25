@@ -9,7 +9,7 @@ export const TopMenu = () => {
     <div id="menu" className="flex w-full h-24 items-center px-5 bg-primary text-white border-b-2 border-tertiary">
       <a href="/" className="w-full">
         <img
-          src="logox500.avif"
+          src="/images/logo/logox500.avif"
           alt="logo de banco de prueba juan"
           className="w-14 bg-white rounded-full"
         />
