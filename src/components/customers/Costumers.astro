@@ -1,0 +1,23 @@
+---
+import { LinkOut } from "../../assets/icons";
+import { costumersComments } from "../../constants/costumers";
+import CostumerCard from "./CostumerCard.astro";
+---
+
+<section id="customers" class="flex flex-col gap-10 py-20 px-10">
+  <h2
+    class="text-6xl bg-[linear-gradient(to_right,var(--tw-gradient-from),var(--tw-gradient-from)_40%,var(--tw-gradient-to)_80%,var(--tw-gradient-to)_100%)] from-primary to-secondary text-transparent bg-clip-text text-center font-bold"
+  >
+    Lo que dicen nuestros clientes
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    {costumersComments.map((item) => <CostumerCard customer={item} />)}
+  </div>
+
+  <a
+    href="https://www.google.com/search?sca_esv=6db176930c53557b&rlz=1C5CHFA_enCO1093CO1093&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E59r5dZk7ZdsmP6JQEnYKrZXeZ4UC8KymOJMgBdoloKQuySQMBfcCCyK9WJglGt77sCN5nJBP05XNN1bb-3A6GD_vaOsIRAJHiro0nvpu_K-GoG5Uw%3D%3D&q=Banco+de+Prueba+JUAN+Opiniones&sa=X&ved=2ahUKEwjtnJmC24yOAxWfSzABHUXUDi4Q0bkNegQIJxAE&biw=1440&bih=754&dpr=1"
+    target="_blank"
+    class="text-sm text-primary underline text-center flex justify-center gap-2"
+  >Ver más opiniones <LinkOut/></a>
+</section>
