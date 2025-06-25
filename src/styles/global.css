@@ -8,6 +8,7 @@
 
 html{
     font-family: sans-serif;
+    scroll-behavior: smooth;
 }
 
 .btn-1{
@@ -26,9 +27,17 @@ html{
     @apply hover:text-secondary transition-all duration-200 max-md:text-2xl
 }
 
+sl-dialog::part(panel) {
+  border-radius: 20px;
+}
+
 @media (max-width: 600px) {
   .drawer--end .drawer__panel {
     width: 100vw !important;
   }
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 8px;
 }
 

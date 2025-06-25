@@ -1,0 +1,55 @@
+---
+import { ShakeHands } from "../assets/icons";
+import { Check } from "../assets/icons";
+import { Diagnostic } from "../assets/icons";
+---
+
+<section
+  id="experience-section"
+  class="flex flex-col gap-10 min-h-[70dvh] p-10 md:p-16 bg-gradient-to-br from-primary to-secondary opacity-0 transition-opacity duration-1000"
+>
+  <div
+    class="text-8xl text-white text-center w-full font-bold text-shadow shadow-white"
+  >
+    15
+  </div>
+  <div
+    class="text-4xl md:text-6xl text-white text-center w-full font-bold text-shadow shadow-white"
+  >
+    años de experiencia
+  </div>
+
+  <div class="text-lg md:text-xl flex max-md:flex-wrap w-full justify-center gap-10 text-white text-shadow shadow-white text-center">
+    <div class="flex flex-col gap-5 items-center w-full">
+      <ShakeHands size={80} />
+      <p>Transparencia en servicio y precios</p>
+    </div>
+    <div class="flex flex-col gap-5 items-center w-full">
+      <Diagnostic size={80} />
+      <p>Diagnóstico técnico, claro y confiable</p>
+    </div>
+    <div class="flex flex-col gap-5 items-center w-full">
+      <Check size={80} />
+      <p>Si lo revisamos, lo garantizamos</p>
+    </div>
+  </div>
+</section>
+
+<!-- ANIMATION FADE IN -->
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const el = document.getElementById("experience-section");
+    if (el) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            el.classList.add("opacity-100");
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(el);
+    }
+  });
+</script>

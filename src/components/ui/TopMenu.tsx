@@ -6,7 +6,7 @@ export const TopMenu = () => {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="flex w-full h-24 items-center px-5 bg-primary text-white border-b-2 border-secondary">
+    <div id="menu" className="flex w-full h-24 items-center px-5 bg-primary text-white border-b-2 border-tertiary">
       <a href="/" className="w-full">
         <img
           src="logox500.avif"
@@ -18,7 +18,7 @@ export const TopMenu = () => {
         <a className="menu-item" href="/">
           Inicio
         </a>
-        <a className="menu-item" href="">
+        <a className="menu-item" href="#services">
           Servicios
         </a>
         <a className="menu-item" href="">

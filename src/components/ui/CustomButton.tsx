@@ -1,3 +1,5 @@
+import React from "react";
+
 interface Props {
   text: string;
   className?: string;
@@ -6,6 +8,8 @@ interface Props {
   variant?: "btn-1" | "btn-2" | "btn-3";
   link?: boolean;
   href?: string;
+  icon?: React.ElementType;
+  iconClass?: string
 }
 
 export const CustomButton = ({
@@ -16,14 +20,19 @@ export const CustomButton = ({
   variant = "btn-1",
   link = false,
   href = "#",
+  icon,
+  iconClass
 }: Props) => {
+
   return link ? (
-    <a href={href} className={`${variant} ${className} text-center`} target="_blank">
+    <a href={href} className={`${variant} ${className} text-center flex gap-3 items-center justify-center`} target="_blank">
       {text}
+      {icon ? React.createElement(icon, { className: iconClass }) : null}
     </a>
   ) : (
-    <button type={type} className={`${variant} ${className}`} onClick={action}>
+    <button type={type} className={`${variant} ${className} flex gap-3 items-center justify-center`} onClick={action}>
       {text}
+      {icon ? React.createElement(icon, { className: iconClass }) : null}
     </button>
   );
 };

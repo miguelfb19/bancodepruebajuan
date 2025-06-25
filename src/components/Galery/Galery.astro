@@ -1,0 +1,27 @@
+---
+import { Carousel } from "./Carousel";
+---
+
+<section id="galery" class="bg-primary p-20 flex flex-col gap-16 opacity-0 transition-opacity duration-1000">
+    <h2 class="text-white text-6xl text-center font-bold">Nuestro trabajo</h2>
+    <Carousel client:only/>
+</section>
+
+<!-- ANIMATION FADE IN -->
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const el = document.getElementById("galery");
+    if (el) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            el.classList.add("opacity-100");
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(el);
+    }
+  });
+</script>
