@@ -1,4 +1,4 @@
-export const costumersComments: { name: string; comment: string }[] = [
+export const customersComments: { name: string; comment: string }[] = [
   {
     name: "Harry Hurtado",
     comment:

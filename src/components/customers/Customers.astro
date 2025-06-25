@@ -1,18 +1,18 @@
 ---
 import { LinkOut } from "../../assets/icons";
-import { costumersComments } from "../../constants/costumers";
-import CostumerCard from "./CostumerCard.astro";
+import { customersComments } from "../../constants/customers";
+import CustomerCard from "./CustomerCard.astro";
 ---
 
 <section id="customers" class="flex flex-col gap-10 py-20 px-10">
   <h2
-    class="text-6xl bg-[linear-gradient(to_right,var(--tw-gradient-from),var(--tw-gradient-from)_40%,var(--tw-gradient-to)_80%,var(--tw-gradient-to)_100%)] from-primary to-secondary text-transparent bg-clip-text text-center font-bold"
+    class="text-5xl md:text-6xl bg-[linear-gradient(to_right,var(--tw-gradient-from),var(--tw-gradient-from)_40%,var(--tw-gradient-to)_80%,var(--tw-gradient-to)_100%)] from-primary to-secondary text-transparent bg-clip-text text-center font-bold"
   >
     Lo que dicen nuestros clientes
   </h2>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-    {costumersComments.map((item) => <CostumerCard customer={item} />)}
+    {customersComments.map((item) => <CustomerCard customer={item} />)}
   </div>
 
   <a

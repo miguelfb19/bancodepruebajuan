@@ -8,7 +8,7 @@ interface Props {
 export const MobileMenu = ({ show, close }: Props) => {
   return (
     <div
-      className={`fixed top-0 right-0 h-[100dvh] md:hidden flex flex-col w-full items-center px-5 pt-20 bg-primary text-white transition-all duration-200 ${
+      className={`fixed top-0 right-0 z-20 h-[100dvh] md:hidden flex flex-col w-full items-center px-5 pt-20 bg-primary text-white transition-all duration-200 ${
         show ? "translate-x-0" : "translate-x-full"
       }`}
     >

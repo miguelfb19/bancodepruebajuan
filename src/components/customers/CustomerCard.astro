@@ -10,7 +10,7 @@ const { customer } = Astro.props;
   <div>
     <p class="font-semibold text-lg text-white">{customer.name}</p>
     <div class="text-yellow-400 flex justify-center items-center">
-      {Array.from({ length: 5 }).map((_) => <Star />)}
+      {Array.from({ length: 5 }).map(() => <Star />)}
     </div>
   </div>
   <p class="italic text-white">{`"${customer.comment}"`}</p>
