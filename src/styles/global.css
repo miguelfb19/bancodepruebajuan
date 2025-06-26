@@ -20,10 +20,6 @@ body {
   height: 100%;
 }
 
-
-.custom-scrollbar {
-}
-
 .btn-1 {
   @apply bg-primary border border-primary text-white rounded-xl px-10 py-2 cursor-pointer hover:brightness-75 transition-all duration-200 shadow shadow-primary active:scale-[98%] active:shadow-none;
 }
