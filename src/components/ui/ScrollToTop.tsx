@@ -12,14 +12,21 @@ export const ScrollToTop = () => {
     // Limpieza del listener al desmontar
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
   return (
-    <a
-      href="/#header"
+    <button
+      onClick={scrollToTop}
       className={`${
         show ? "block" : "hidden"
-      } fixed bottom-10 right-10 z-50 text-secondary`}
+      } fixed bottom-10 right-10 z-50 text-secondary bg-primary rounded-full border-none cursor-pointer p-0`}
     >
       <UpArrowCircle size={50} />
-    </a>
+    </button>
   );
 };
