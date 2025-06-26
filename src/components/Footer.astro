@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import { Facebook, Instagram } from "../assets/icons";
+---
+
+<footer class="p-2 flex flex-col bg-primary text-white">
+  <div class="flex flex-col gap-10 p-10 items-center">
+    <div class="grid grid-cols-1 md:grid-cols-3 max-md:gap-10 items-center justify-center w-full">
+
+      <!-- Logo y redes -->
+      <div class="flex flex-col gap-5 items-center">
+        <Image
+          src="/images/logo/logo-circlex500.png"
+          alt="Logo"
+          class="w-32 h-32 object-contain"
+          width={300}
+          height={300}
+        />
+        <div class="flex gap-2 items-center">
+          <a href="https://www.instagram.com/bancodepruebajuan"><Instagram /></a
+          >
+          <a href="https://www.facebook.com/bancodepruebajuan"><Facebook /></a>
+        </div>
+      </div>
+
+      <!-- Horarios -->
+      <div class="flex flex-col gap-3">
+        <h3 class="font-bold text-xl">Horarios</h3>
+        <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
+        <p>Sábado: 9:00 AM - 2:00 PM</p>
+      </div>
+
+      <!-- Enlaces de interes -->
+      <div class="flex flex-col gap-3">
+        <h3 class="font-bold text-xl">Enlaces de interés</h3>
+        <a href="/contact" class="underline">Contáctanos</a>
+        <a href="/about" class="underline">Sobre nosotros</a>
+        <a href="/#blog" class="underline">Blog</a>
+        <a href="/#services" class="underline">Servicios</a>
+      </div>
+    </div>
+    <h2 class="text-2xl text-center">© Todos los derechos reservados</h2>
+  </div>
+  <div class="text-sm text-center">
+    Desarrollado por <a
+      class="underline hover:text-secondary"
+      target="_blank"
+      href="https://miguelangeldev.vercel.app/">Miguel Ángel Fernandez ©</a
+    >
+  </div>
+</footer>

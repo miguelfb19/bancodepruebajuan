@@ -1,5 +1,7 @@
 ---
+import Footer from "../components/Footer.astro";
 import { TopMenu } from "../components/ui/TopMenu";
+import { ScrollToTop } from "../components/ui/ScrollToTop";
 ---
 
 <!doctype html>
@@ -25,7 +27,9 @@ import { TopMenu } from "../components/ui/TopMenu";
   <body class="antialiased">
     <TopMenu client:load />
     <main>
+      <ScrollToTop client:load />
       <slot />
     </main>
+    <Footer />
   </body>
 </html>
