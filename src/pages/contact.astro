@@ -1,0 +1,29 @@
+---
+import Cards from "../components/contact/Cards.astro";
+import Layout from "../layouts/Layout.astro";
+import Map from "../components/contact/Map.astro";
+---
+
+<Layout>
+  <section id="contact" class="min-h-screen">
+
+    <!-- Header -->
+    <div
+      class="relative w-full h-96 bg-cover bg-center bg-no-repeat flex items-center justify-center bg-[url('/images/portada/portada.avif')]"
+    >
+      <div class="absolute inset-0 bg-black/40"></div>
+      <h1
+        class="relative z-10 text-4xl md:text-6xl font-bold text-white text-center text-shadow"
+      >
+        Contáctanos
+      </h1>
+    </div>
+
+    <!-- Cards de contacto -->
+    <Cards />
+
+    <!-- Mapa embebido -->
+     <Map />
+    
+  </section>
+</Layout>

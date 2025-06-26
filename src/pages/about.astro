@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <section id="about-us">
+    <!-- Header -->
+    <div
+      class="relative w-full h-96 bg-cover bg-center bg-no-repeat flex items-center justify-center bg-[url('/images/portada/portada.avif')]"
+    >
+      <div class="absolute inset-0 bg-black/40"></div>
+      <h1
+        class="relative z-10 text-4xl md:text-6xl font-bold text-white text-center text-shadow"
+      >
+        Sobre Nosotros
+      </h1>
+    </div>
+
+    <div id="content-container" class="p-10">
+      <!-- Quienes somos -->
+      <div
+        class="rounded-2xl shadow-lg p-5 bg-gradient-to-br from-30% from-slate-200 via-70% via-white to-tertiary mb-10"
+      >
+        <h2 class="text-3xl font-bold text-primary mb-10">¿Quienes somos?</h2>
+        <p>
+          Somos una empresa del sector automotriz fundada en el eje cafetero
+          colombiano en el año 2010, especializada en la reparación de vehículos
+          livianos en el Área de enderezado y estética de chasis para alineación
+          y peritaje. Nos enfocamos en servir de manera ágil y eficiente a todos
+          nuestros clientes y brindarles con honestidad y transparencia la mejor
+          garantía en cada reparación.
+        </p>
+      </div>
+
+      <!-- Mision y vision -->
+      <div class="flex gap-10">
+        <div
+          class="rounded-2xl shadow-lg p-5 bg-gradient-to-br from-30% from-slate-200 via-70% via-white to-tertiary w-full"
+        >
+          <h2 class="text-3xl font-bold text-primary mb-10">Misión</h2>
+          <p>
+            Brindar soluciones efectivas y accesibles a nuestros clientes en la
+            reparación de chasís y estructura interna de vehículos, con calidad,
+            honestidad y garantía.
+          </p>
+        </div>
+
+        <div
+          class="rounded-2xl shadow-lg p-5 bg-gradient-to-br from-30% from-slate-200 via-70% via-white to-tertiary w-full"
+        >
+          <h2 class="text-3xl font-bold text-primary mb-10">Visión</h2>
+          <p>
+            Ser la mejor opción del eje cafetero en reparación, alineación y
+            rectificación de chasis y estructura en fallas de peritaje y
+            alineación de vehículos.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

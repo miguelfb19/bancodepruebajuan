@@ -1,0 +1,121 @@
+---
+import { Mail } from "../../assets/icons";
+import { Whatsapp } from "../../assets/icons";
+import { Facebook } from "../../assets/icons";
+import { Instagram } from "../../assets/icons";
+import { Pin } from "../../assets/icons";
+import { Phone } from "../../assets/icons";
+---
+
+<div class="flex flex-col text-center mt-10 gap-10 pb-20">
+  <div>
+    <h2 class="text-4xl font-bold text-primary">Ponte en contacto</h2>
+    <p class="text-tertiary text-lg">
+      Estamos aquí para ayudarte con tu vehículo.
+    </p>
+  </div>
+
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:justify-items-center max-md:pl-10"
+  >
+    <!-- Redes sociales -->
+    <div class="space-y-6 text-left">
+      <a
+        href="https://wa.me/573148851367"
+        target="_blank"
+        class="flex items-center gap-4 min-w-[22rem] rounded-2xl shadow-lg p-4 hover:scale-[101%] hover:shadow-xl transition-transform duration-200"
+      >
+        <div
+          class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary"
+        >
+          <Whatsapp size={25} />
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">Teléfono</h3>
+          <p class="text-tertiary">+57 3148851367</p>
+        </div>
+      </a>
+      <a
+        href="https://www.facebook.com/bancodepruebajuan"
+        target="_blank"
+        class="flex items-center gap-4 min-w-[22rem] rounded-2xl shadow-lg p-4 hover:scale-[101%] hover:shadow-xl transition-transform duration-200"
+      >
+        <div
+          class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary"
+        >
+          <Facebook size={25} />
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">Facebook</h3>
+          <p class="text-tertiary">Banco de Prueba JUAN</p>
+        </div>
+      </a>
+      <a
+        href="https://www.instagram.com/bancodepruebajuan"
+        target="_blank"
+        class="flex items-center gap-4 min-w-[22rem] rounded-2xl shadow-lg p-4 hover:scale-[101%] hover:shadow-xl transition-transform duration-200"
+      >
+        <div
+          class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary"
+        >
+          <Instagram size={25} />
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">Instagram</h3>
+          <p class="text-tertiary">@bancodepruebajuan</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Información de contacto -->
+    <div class="space-y-6 text-left">
+      <a
+        href="tel:6063302804"
+        target="_blank"
+        class="flex items-center gap-4 min-w-[22rem] rounded-2xl shadow-lg p-4 hover:scale-[101%] hover:shadow-xl transition-transform duration-200"
+      >
+        <div
+          class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary"
+        >
+          <Phone size={25} />
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">Teléfono</h3>
+          <p class="text-tertiary">606 3302804</p>
+        </div>
+      </a>
+      <a
+        href="mailto:bancodepruebajuan@gmail.com"
+        target="_blank"
+        class="flex items-center gap-4 min-w-[22rem] rounded-2xl shadow-lg p-4 hover:scale-[101%] hover:shadow-xl transition-transform duration-200"
+      >
+        <div
+          class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary"
+        >
+          <Mail size={25} />
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">Email</h3>
+          <p class="text-tertiary">bancodepruebajuan@gmail.com</p>
+        </div>
+      </a>
+      <a
+        href="https://maps.app.goo.gl/utcaUDkT4vEybPHKA"
+        target="_blank"
+        class="flex items-center gap-4 min-w-[22rem] rounded-2xl shadow-lg p-4 hover:scale-[101%] hover:shadow-xl transition-transform duration-200"
+      >
+        <div
+          class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary"
+        >
+          <Pin size={25} />
+        </div>
+        <div>
+          <h3 class="font-semibold text-primary">Dirección</h3>
+          <p class="text-tertiary">
+            CRA 14 (Av. Paralela) #27-04 <br /> Nuevo México, Pereira
+          </p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

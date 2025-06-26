@@ -26,18 +26,18 @@ const cleanedContent = article.content
 const htmlContent = marked.parse(cleanedContent);
 ---
 
-<div 
+<div
   id={cardId} 
-  class="blog-card rounded-2xl bg-white text-primary h-96 m-auto flex flex-col justify-between gap-5 p-5 md:p-16 text-center cursor-pointer shadow-lg shadow-gray hover:scale-[102%] hover:shadow-xl transition-all duration-300"
+  class="blog-card rounded-2xl bg-gradient-to-bl from-30% from-slate-200 via-70% via-white to-tertiary text-primary min-h-96 m-auto flex flex-col justify-between gap-5 p-5 md:p-16 text-center cursor-pointer shadow-lg shadow-gray hover:scale-[102%] hover:shadow-xl transition-all duration-300"
   data-drawer-id={drawerId}
 >
   <h3 class="font-bold text-xl">{article.title}</h3>
-  <p>{article.resume}</p>
+  <p class="max-h-44 overflow-auto">{article.resume}</p>
   <CustomButton text="Leer más" />
 </div>
 
 <sl-drawer id={drawerId} noHeader class="drawer-overview">
-  <div class="p-5 flex flex-col gap-4">
+  <article class="p-5 flex flex-col gap-4">
     <h3 class="font-bold text-3xl">{article.title}</h3>
     <Image src={article.image} alt={article.title} class="w-full h-44 md:h-96 object-cover rounded-lg mb-4" width={1000} height={600} />
     <div class="prose whitespace-pre-line" set:html={htmlContent}></div>
@@ -47,7 +47,7 @@ const htmlContent = marked.parse(cleanedContent);
         click aquí
       </a>
     </span>         
-  </div>
+  </article>
   <CustomButton id={closeButtonId} slot="footer" variant="btn-2" className="drawer-close m-auto mb-10" text="Cerrar" />
 </sl-drawer>
 
