@@ -16,10 +16,10 @@ export const MobileMenu = ({ show, close }: Props) => {
         <a className="menu-item" href="/">
           Inicio
         </a>
-        <a className="menu-item" href="#services">
+        <a className="menu-item" href="#services" onClick={close}>
           Servicios
         </a>
-        <a className="menu-item" href="#blog">
+        <a className="menu-item" href="#blog" onClick={close}>
           Blog
         </a>
         <a className="menu-item" href="/about">

@@ -8,7 +8,7 @@ export const TopMenu = () => {
   return (
     <div
       id="menu"
-      className="flex w-full h-24 items-center px-5 bg-primary text-white border-b-2 border-tertiary"
+      className="sticky top-0 left-0 z-30 md:static flex w-full h-24 items-center px-5 bg-primary text-white border-b-2 border-tertiary"
     >
       <a href="/" className="w-full">
         <img
