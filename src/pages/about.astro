@@ -1,4 +1,5 @@
 ---
+import { Mision, Values, Vision, WhoWeAre } from "../assets/icons";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -19,9 +20,14 @@ import Layout from "../layouts/Layout.astro";
     <div id="content-container" class="p-10">
       <!-- Quienes somos -->
       <div
-        class="rounded-2xl shadow-lg p-5 bg-gradient-to-br from-30% from-slate-200 via-70% via-white to-tertiary mb-10"
+        class="rounded-2xl shadow-lg text-primary p-5 bg-gradient-to-br from-30% from-slate-200 via-70% via-white to-tertiary/40 mb-10"
       >
-        <h2 class="text-3xl font-bold text-primary mb-10">¿Quienes somos?</h2>
+        <h2 class="text-3xl font-bold mb-10 flex gap-5 items-center">
+          <span>¿Quienes somos?</span>
+          <div class="rounded-full bg-gradient-to-tl from-primary/20 via-60% via-white to-primary/20 p-2 shadow-lg">
+            <WhoWeAre size={50} />
+          </div>
+        </h2>
         <p>
           Somos una empresa del sector automotriz fundada en el eje cafetero
           colombiano en el año 2010, especializada en la reparación de vehículos
@@ -33,11 +39,16 @@ import Layout from "../layouts/Layout.astro";
       </div>
 
       <!-- Mision y vision -->
-      <div class="flex gap-10">
+      <div class="flex max-md:flex-col gap-10">
         <div
-          class="rounded-2xl shadow-lg p-5 bg-gradient-to-br from-30% from-slate-200 via-70% via-white to-tertiary w-full"
+          class="rounded-2xl shadow-lg text-primary p-5 bg-gradient-to-br from-30% from-slate-200 via-70% via-white to-tertiary/40 w-full"
         >
-          <h2 class="text-3xl font-bold text-primary mb-10">Misión</h2>
+          <h2 class="text-3xl font-bold mb-10 flex gap-5 items-center">
+          <span>Misión</span>
+          <div class="rounded-full bg-gradient-to-tl from-primary/20 via-60% via-white to-primary/20 p-2 shadow-lg">
+            <Mision size={50} />
+          </div>
+        </h2>
           <p>
             Brindar soluciones efectivas y accesibles a nuestros clientes en la
             reparación de chasís y estructura interna de vehículos, con calidad,
@@ -46,15 +57,68 @@ import Layout from "../layouts/Layout.astro";
         </div>
 
         <div
-          class="rounded-2xl shadow-lg p-5 bg-gradient-to-br from-30% from-slate-200 via-70% via-white to-tertiary w-full"
+          class="rounded-2xl shadow-lg p-5 bg-gradient-to-br from-30% from-slate-200 via-70% via-white to-tertiary/40 w-full"
         >
-          <h2 class="text-3xl font-bold text-primary mb-10">Visión</h2>
+          <h2 class="text-3xl font-bold mb-10 flex gap-5 items-center">
+          <span>Visión</span>
+          <div class="rounded-full bg-gradient-to-tl from-primary/20 via-60% via-white to-primary/20 p-2 shadow-lg">
+            <Vision size={50} />
+          </div>
+        </h2>
           <p>
             Ser la mejor opción del eje cafetero en reparación, alineación y
             rectificación de chasis y estructura en fallas de peritaje y
             alineación de vehículos.
           </p>
         </div>
+      </div>
+
+      <!-- Valores -->
+
+      <div
+        class="rounded-2xl shadow-lg text-primary p-5 bg-gradient-to-br from-30% from-slate-200 via-70% via-white to-tertiary/40 mt-10"
+      >
+        <h2 class="text-3xl font-bold mb-10 flex gap-5 items-center">
+          <span>Valores de nuestra empresa</span>
+          <div class="rounded-full bg-gradient-to-tl from-primary/20 via-60% via-white to-primary/20 p-2 shadow-lg">
+            <Values size={50} />
+          </div>
+        </h2>
+        <p>
+          En <strong>Banco de Prueba Juan</strong>, nos guiamos por principios
+          sólidos que reflejan nuestro compromiso con nuestros clientes,
+          colaboradores y la sociedad. Estos valores son la base de cada
+          decisión y acción que tomamos:
+          <br />
+          <br />
+          <p>
+            <strong>Honestidad</strong>
+            <br /> Actuamos con transparencia y coherencia en todo lo que hacemos.
+            Creemos que la confianza se construye con integridad, cumpliendo siempre
+            nuestras promesas.
+          </p>
+          <br />
+          <p>
+            <strong>Calidad</strong>
+            <br /> Nos esforzamos por ofrecer productos y servicios que superen las
+            expectativas. Cada detalle cuenta, y trabajamos constantemente para garantizar
+            resultados excepcionales.
+          </p>
+          <br />
+          <p>
+            <strong>Responsabilidad</strong>
+            <br />Asumimos nuestros compromisos con seriedad, siendo conscientes
+            del impacto de nuestras acciones en nuestros clientes, el entorno y
+            nuestro equipo.
+          </p>
+          <br />
+          <p>
+            <strong>Mejora continua</strong>
+            <br /> Innovamos y aprendemos constantemente para crecer. Nos retamos
+            a mejorar cada día, adaptándonos a los cambios y buscando siempre la
+            excelencia.
+          </p>
+        </p>
       </div>
     </div>
   </section>

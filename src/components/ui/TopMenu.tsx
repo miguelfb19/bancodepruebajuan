@@ -21,10 +21,10 @@ export const TopMenu = () => {
         <a className="menu-item" href="/">
           Inicio
         </a>
-        <a className="menu-item" href="#services">
+        <a className="menu-item" href="/#services">
           Servicios
         </a>
-        <a className="menu-item" href="#blog">
+        <a className="menu-item" href="/#blog">
           Blog
         </a>
         <a className="menu-item" href="/about">

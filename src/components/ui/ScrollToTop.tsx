@@ -14,7 +14,7 @@ export const ScrollToTop = () => {
   }, []);
   return (
     <a
-      href="#menu"
+      href="/#header"
       className={`${
         show ? "block" : "hidden"
       } fixed bottom-10 right-10 z-50 text-secondary`}

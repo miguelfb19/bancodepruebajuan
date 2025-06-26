@@ -42,7 +42,7 @@ export const ServiceCard = ({ service }: Props) => {
       {/* CARD */}
       <div
         id="card"
-        className="flex flex-col justify-between pb-5 gap-5 rounded-2xl border-2 border-primary shadow-lg shadow-tertiary cursor-pointer hover:scale-[102%] hover:shadow-xl transition-all duration-300"
+        className="flex flex-col justify-between pb-5 gap-5 rounded-2xl bg-gradient-to-bl from-30% from-slate-200 via-70% via-white to-tertiary/40 text-primary shadow-lg shadow-tertiary cursor-pointer hover:scale-[102%] hover:shadow-xl transition-all duration-300"
         onClick={() => setOpenModal(true)}
       >
         <div className="flex flex-col gap-3 overflow-hidden">

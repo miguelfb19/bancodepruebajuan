@@ -1,0 +1,60 @@
+---
+import { contactInfo } from "../../constants/contact-info";
+---
+
+<div class="flex flex-col text-center mt-10 gap-10 pb-20">
+  <div>
+    <h2 class="text-4xl font-bold text-primary">Ponte en contacto</h2>
+    <p class="text-tertiary text-lg">
+      Estamos aquí para ayudarte con tu vehículo.
+    </p>
+  </div>
+
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:justify-items-center"
+  >
+    <!-- Redes sociales -->
+    <div class="space-y-6 text-left">
+      {
+        contactInfo.slice(0, 3).map((info) => (
+          <a
+            href={info.link}
+            target="_blank"
+            class="flex items-center gap-4 md:min-w-[22rem] rounded-2xl shadow-lg p-4 hover:scale-[101%] hover:shadow-xl transition-transform duration-200"
+          >
+            <div class="w-12 h-12 bg-gradient-to-tl from-primary/20 via-60% via-white to-primary/20 rounded-full flex items-center justify-center text-primary shadow-lg">
+              {info.icon && <info.icon size={25} />}
+            </div>
+            <div>
+              <h3 class="font-semibold text-primary">{info.title}</h3>
+              <p class="text-tertiary">{info.description}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- Información de contacto -->
+    <div class="space-y-6 text-left">
+      {
+        contactInfo.slice(3).map((info) => (
+          <a
+            href={info.link}
+            target="_blank"
+            class="flex items-center gap-4 md:min-w-[22rem] rounded-2xl shadow-lg p-4 hover:scale-[101%] hover:shadow-xl transition-transform duration-200"
+          >
+            <div class="w-12 h-12 bg-gradient-to-tl from-primary/20 via-60% via-white to-primary/20 rounded-full flex items-center justify-center text-primary shadow-lg">
+              {info.icon && <info.icon size={25} />}
+            </div>
+            <div>
+              <h3 class="font-semibold text-primary">{info.title}</h3>
+              <p class="text-tertiary whitespace-pre-line">
+                {info.description}
+              </p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
