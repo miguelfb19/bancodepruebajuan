@@ -1,8 +1,13 @@
 ---
 import { Carousel } from "./Carousel";
+const images = [
+    "/images/portada/portada.avif",
+    "/images/portada/portada.avif",
+    "/images/portada/portada.avif"
+]
 ---
 
 <section id="galery" class="bg-primary max-md:py-10 md:p-20 flex flex-col gap-16 opacity-0 transition-opacity duration-1000">
-    <h2 class="text-white text-5xl md:text-6xl text-center font-bold">Nuestro trabajo</h2>
-    <Carousel client:only/>
+    <h2 class="text-white text-5xl md:text-6xl text-center font-bold text-shadow">Nuestro trabajo</h2>
+    <Carousel images={images} client:only />
 </section>

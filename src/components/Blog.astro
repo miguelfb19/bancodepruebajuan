@@ -1,12 +1,17 @@
 ---
+import { articles } from "../constants/articles";
+import BlogCard from "./blog/BlogCard.astro";
 ---
 
 <section
   id="blog"
-  class="bg-tertiary max-md:py-10 md:p-20 flex opacity-0 flex-col gap-16 transition-opacity duration-1000"
+  class="bg-primary p-10 md:p-20 flex opacity-0 flex-col gap-16 transition-opacity duration-1000"
 >
-  <h2 class="text-white text-5xl md:text-6xl text-center font-bold">
+  <h2 class="text-white text-5xl md:text-6xl text-center font-bold text-shadow">
     Temas de interes
   </h2>
-  
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    {articles.map((article) => <BlogCard article={article} />)}
+  </div>
 </section>

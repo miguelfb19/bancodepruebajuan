@@ -8,6 +8,7 @@ interface Props {
   variant?: "btn-1" | "btn-2" | "btn-3";
   link?: boolean;
   href?: string;
+  target?: "_blank" | "_self" | "_parent" | "_top";
   icon?: React.ElementType;
   iconClass?: string
 }
@@ -20,12 +21,13 @@ export const CustomButton = ({
   variant = "btn-1",
   link = false,
   href = "#",
+  target = "_blank",
   icon,
   iconClass
 }: Props) => {
 
   return link ? (
-    <a href={href} className={`${variant} ${className} text-center flex gap-3 items-center justify-center`} target="_blank">
+    <a href={href} className={`${variant} ${className} text-center flex gap-3 items-center justify-center`} target={target} rel="noopener noreferrer">
       {text}
       {icon ? React.createElement(icon, { className: iconClass }) : null}
     </a>

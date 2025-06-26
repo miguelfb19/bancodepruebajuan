@@ -1,0 +1,12 @@
+---
+import { type Article } from "../../interfaces/Article";
+import { CustomButton } from "../ui/CustomButton";
+
+const { article } = Astro.props as { article: Article };
+---
+
+<div class="rounded-2xl bg-white text-primary flex flex-col justify-between gap-5 p-5 text-center cursor-pointer shadow-lg shadow-gray hover:scale-[102%] hover:shadow-xl transition-all duration-300">
+  <h3 class="font-bold text-xl">{article.title}</h3>
+  <p>{article.resume}</p>
+  <CustomButton text="Leer más" />
+</div>

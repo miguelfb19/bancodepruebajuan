@@ -18,7 +18,6 @@ export const Drawer = () => {
 
       
       <CustomButton text='Abrir modal' action={() => setOpen(true)} className='ml-5'/>
-      <CustomButton text='Abrir modal' variant='btn-2' action={() => setOpen(true)} className='ml-5'/>
     </>
   )
 }

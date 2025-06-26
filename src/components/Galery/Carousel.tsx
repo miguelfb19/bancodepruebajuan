@@ -1,41 +1,23 @@
-import SlCarousel from '@shoelace-style/shoelace/dist/react/carousel/index.js';
-import SlCarouselItem from '@shoelace-style/shoelace/dist/react/carousel-item/index.js';
+import SlCarousel from "@shoelace-style/shoelace/dist/react/carousel/index.js";
+import SlCarouselItem from "@shoelace-style/shoelace/dist/react/carousel-item/index.js";
 
-export const Carousel = () => {
+export interface CarouselProps {
+  images?: string[];
+}
+
+export const Carousel = ({ images }: CarouselProps) => {
   return (
-    <>
-      <SlCarousel navigation pagination mouse-dragging>
-        <SlCarouselItem>
+    <SlCarousel navigation pagination mouseDragging>
+      {images?.map((src, idx) => (
+        <SlCarouselItem key={idx}>
           <img
-            alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
-            src="/portada.avif"
+            src={src}
+            alt={`Slide ${idx + 1}`}
+            loading="lazy"
+            className="w-full h-auto object-cover"
           />
         </SlCarouselItem>
-        <SlCarouselItem>
-          <img
-            alt="A waterfall in the middle of a forest (by Thomas Kelly on Unsplash)"
-            src="/portada.avif"
-          />
-        </SlCarouselItem>
-        <SlCarouselItem>
-          <img
-            alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
-            src="/portada.avif"
-          />
-        </SlCarouselItem>
-        <SlCarouselItem>
-          <img
-            alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
-            src="/portada.avif"
-          />
-        </SlCarouselItem>
-        <SlCarouselItem>
-          <img
-            alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
-            src="/portada.avif"
-          />
-        </SlCarouselItem>
-      </SlCarousel>
-    </>
+      ))}
+    </SlCarousel>
   );
 };
