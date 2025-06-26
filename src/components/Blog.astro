@@ -5,7 +5,7 @@ import BlogCard from "./blog/BlogCard.astro";
 
 <section
   id="blog"
-  class="bg-primary p-10 md:p-20 flex opacity-0 flex-col gap-16 transition-opacity duration-1000"
+  class="bg-primary p-10 md:p-20 flex opacity-0 flex-col gap-5 md:gap-20 transition-opacity duration-1000"
 >
   <h2 class="text-white text-5xl md:text-6xl text-center font-bold text-shadow">
     Temas de interes
@@ -15,3 +15,8 @@ import BlogCard from "./blog/BlogCard.astro";
     {articles.map((article) => <BlogCard article={article} />)}
   </div>
 </section>
+
+<!-- fade in -->
+<script>
+  import "../scripts/fade-in";
+</script>

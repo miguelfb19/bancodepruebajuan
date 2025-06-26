@@ -10,7 +10,8 @@ interface Props {
   href?: string;
   target?: "_blank" | "_self" | "_parent" | "_top";
   icon?: React.ElementType;
-  iconClass?: string
+  iconClass?: string;
+  id?: string;
 }
 
 export const CustomButton = ({
@@ -23,16 +24,17 @@ export const CustomButton = ({
   href = "#",
   target = "_blank",
   icon,
-  iconClass
+  iconClass,
+  id,
 }: Props) => {
 
   return link ? (
-    <a href={href} className={`${variant} ${className} text-center flex gap-3 items-center justify-center`} target={target} rel="noopener noreferrer">
+    <a id={id} href={href} className={`${variant} ${className} text-center flex gap-3 items-center justify-center`} target={target} rel="noopener noreferrer">
       {text}
       {icon ? React.createElement(icon, { className: iconClass }) : null}
     </a>
   ) : (
-    <button type={type} className={`${variant} ${className} flex gap-3 items-center justify-center`} onClick={action}>
+    <button id={id} type={type} className={`${variant} ${className} flex gap-3 items-center justify-center`} onClick={action}>
       {text}
       {icon ? React.createElement(icon, { className: iconClass }) : null}
     </button>

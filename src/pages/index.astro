@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { TopMenu } from "../components/ui/TopMenu";
 import Hero from "../components/Hero.astro";
 import Services from "../components/services/Services.astro";
 import "../styles/global.css";
@@ -19,12 +18,10 @@ import "@shoelace-style/shoelace/dist/components/carousel-item/carousel-item.js"
 
 <Layout>
   <ScrollToTop client:load />
-
-  <TopMenu client:load />
   <Hero />
   <Services />
   <Experience />
-  <Galery/>
+  <Galery />
   <Customers />
   <Blog />
   <CTA />

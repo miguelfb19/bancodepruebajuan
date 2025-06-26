@@ -20,7 +20,7 @@ export const ServiceCard = ({ service }: Props) => {
         style={{ "--width": "50rem" } as React.CSSProperties}
       >
         <h3 className="font-bold text-2xl mb-5 text-center">{name}</h3>
-        <div className="h-96 w-full rounded-xl">
+        <div className="h-96 w-full rounded-xl mb-5">
           <img
             src={picture || "/portadaMobile.avif"}
             alt={`imagen de servicio ${name}`}

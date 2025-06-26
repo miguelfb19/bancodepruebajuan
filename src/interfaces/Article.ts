@@ -3,4 +3,5 @@ export interface Article {
     resume: string;
     content: string;
     ref: string;
+    image: string;
 }

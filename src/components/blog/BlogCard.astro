@@ -1,12 +1,113 @@
 ---
+import { Image } from "astro:assets";
 import { type Article } from "../../interfaces/Article";
 import { CustomButton } from "../ui/CustomButton";
+import { marked } from "marked";
+
+// Configurar marked para mejor procesamiento de markdown
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+});
 
 const { article } = Astro.props as { article: Article };
+// Crear un ID único y seguro basado en el ref del artículo
+const safeRef = article.ref.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+const cardId = `blog-card-${safeRef}`;
+const drawerId = `drawer-${safeRef}`;
+const closeButtonId = `close-btn-${safeRef}`;
+
+// Limpiar el contenido y procesar markdown correctamente
+const cleanedContent = article.content
+  .trim() // Eliminar espacios al inicio y final
+  .replace(/^\s+/gm, '') // Eliminar espacios al inicio de cada línea
+  .replace(/\n\s*\n/g, '\n\n'); // Normalizar saltos de línea dobles
+
+const htmlContent = marked.parse(cleanedContent);
 ---
 
-<div class="rounded-2xl bg-white text-primary flex flex-col justify-between gap-5 p-5 text-center cursor-pointer shadow-lg shadow-gray hover:scale-[102%] hover:shadow-xl transition-all duration-300">
+<div 
+  id={cardId} 
+  class="blog-card rounded-2xl bg-white text-primary h-96 m-auto flex flex-col justify-between gap-5 p-5 md:p-16 text-center cursor-pointer shadow-lg shadow-gray hover:scale-[102%] hover:shadow-xl transition-all duration-300"
+  data-drawer-id={drawerId}
+>
   <h3 class="font-bold text-xl">{article.title}</h3>
   <p>{article.resume}</p>
   <CustomButton text="Leer más" />
 </div>
+
+<sl-drawer id={drawerId} noHeader class="drawer-overview">
+  <div class="p-5 flex flex-col gap-4">
+    <h3 class="font-bold text-3xl">{article.title}</h3>
+    <Image src={article.image} alt={article.title} class="w-full h-44 md:h-96 object-cover rounded-lg mb-4" width={1000} height={600} />
+    <div class="prose whitespace-pre-line" set:html={htmlContent}></div>
+    <span class="text-sm">
+      Conoce más sobre este tema haciendo
+      <a href={article.ref} target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">
+        click aquí
+      </a>
+    </span>         
+  </div>
+  <CustomButton id={closeButtonId} slot="footer" variant="btn-2" className="drawer-close m-auto mb-10" text="Cerrar" />
+</sl-drawer>
+
+<!-- Importar componentes de Shoelace -->
+<script is:inline type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/components/drawer/drawer.js"></script>
+<script is:inline type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/components/button/button.js"></script>
+
+<script is:inline>
+  // Usar una función que se ejecute después de que todo esté cargado
+  function initializeBlogCard() {
+    // Seleccionar todas las tarjetas de blog
+    const blogCards = document.querySelectorAll('.blog-card');
+    
+    blogCards.forEach(card => {
+      const drawerId = card.getAttribute('data-drawer-id');
+      if (!drawerId) return;
+      
+      const drawer = document.getElementById(drawerId);
+      
+      if (drawer) {
+        // Agregar evento click a la tarjeta
+        card.addEventListener('click', () => {
+          console.log(`Opening drawer: ${drawerId}`);
+          // Usar el método show de Shoelace
+          drawer.show();
+        });
+        
+        // Agregar evento al botón de cerrar
+        const closeButton = drawer.querySelector('.drawer-close');
+        if (closeButton) {
+          closeButton.addEventListener('click', () => {
+            console.log(`Closing drawer: ${drawerId}`);
+            // Usar el método hide de Shoelace
+            drawer.hide();
+          });
+        }
+      }
+    });
+  }
+
+  // Esperar a que Shoelace esté completamente cargado
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeBlogCard();
+    });
+  } else {
+    initializeBlogCard();
+  }
+</script>
+
+<style>
+  /* Estilos base para el drawer */
+  .drawer-overview {
+    --size: 60dvw;
+  }
+  
+  /* Media query para pantallas pequeñas */
+  @media (max-width: 600px) {
+    .drawer-overview {
+      --size: 100dvw !important;
+    }
+  }
+</style>

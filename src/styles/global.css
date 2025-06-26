@@ -1,30 +1,43 @@
 @import "tailwindcss";
 
-@theme inline{
-    --color-primary: #0E1A2F;
-    --color-secondary: #E6332A;
-    --color-tertiary: #4F4F4F; 
+@theme inline {
+  --color-primary: #0e1a2f;
+  --color-secondary: #e6332a;
+  --color-tertiary: #4f4f4f;
 }
 
-html{
-    font-family: sans-serif;
-    scroll-behavior: smooth;
+html {
+  font-family: sans-serif;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) transparent;
+  scrollbar-gutter: stable;
 }
 
-.btn-1{
-    @apply bg-primary border border-primary text-white rounded-xl px-10 py-2 cursor-pointer hover:brightness-75 transition-all duration-200 shadow shadow-primary active:scale-[98%] active:shadow-none
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.btn-2{
-    @apply border-2 border-secondary text-secondary rounded-xl px-10 py-2 cursor-pointer hover:bg-secondary/10 transition-all duration-200 shadow shadow-secondary active:scale-[98%] active:shadow-none
+
+.custom-scrollbar {
 }
 
-.btn-3{
-    @apply bg-secondary border border-secondary text-white rounded-xl px-10 py-2 cursor-pointer hover:brightness-90 transition-all duration-200 shadow shadow-primary active:scale-[98%] active:shadow-none
+.btn-1 {
+  @apply bg-primary border border-primary text-white rounded-xl px-10 py-2 cursor-pointer hover:brightness-75 transition-all duration-200 shadow shadow-primary active:scale-[98%] active:shadow-none;
 }
 
-.menu-item{
-    @apply hover:text-secondary transition-all duration-200 max-md:text-2xl
+.btn-2 {
+  @apply border-2 border-secondary text-secondary rounded-xl px-10 py-2 cursor-pointer hover:bg-secondary/10 transition-all duration-200 shadow shadow-secondary active:scale-[98%] active:shadow-none;
+}
+
+.btn-3 {
+  @apply bg-secondary border border-secondary text-white rounded-xl px-10 py-2 cursor-pointer hover:brightness-90 transition-all duration-200 shadow shadow-primary active:scale-[98%] active:shadow-none;
+}
+
+.menu-item {
+  @apply hover:text-secondary transition-all duration-200 max-md:text-2xl;
 }
 
 .text-shadow {
@@ -35,16 +48,9 @@ sl-dialog::part(panel) {
   border-radius: 20px;
 }
 
-@media (max-width: 600px) {
-  .drawer--end .drawer__panel {
-    width: 100vw !important;
-  }
-}
-
 /* ANIMATION SCROLL REVEAL */
 
 #experience,
-#blog,
 #galery,
 #cta,
 #customers {
@@ -67,3 +73,18 @@ sl-dialog::part(panel) {
   }
 }
 
+.prose h2{
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.prose ul{
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--color-secondary);
+  padding-left: 1rem;
+  color: var(--color-tertiary);
+}
