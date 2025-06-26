@@ -69,6 +69,8 @@ sl-dialog::part(panel) {
   }
 }
 
+/* styles para el markdown rendering */
+
 .prose h2{
   font-size: 1.5rem;
   font-weight: 600;
