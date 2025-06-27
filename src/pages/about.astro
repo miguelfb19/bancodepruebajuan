@@ -10,41 +10,12 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
   keywords="historia Banco de Prueba Juan, empresa enderezado Pereira, misión visión valores, taller automotriz Risaralda, experiencia enderezado chasis"
   canonical="https://bancodepruebajuan.com/about"
 >
-  <!-- Structured Data - Organization -->
-  <script type="application/ld+json" slot="head">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Banco de Prueba Juan",
-      "foundingDate": "2010",
-      "founder": {
-        "@type": "Person",
-        "name": "Juan"
-      },
-      "description": "Empresa del sector automotriz fundada en el eje cafetero colombiano en el año 2010, especializada en la reparación de vehículos livianos en el área de enderezado y estética de chasis.",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "CRA 14 (Av. Paralela) #27-04",
-        "addressLocality": "Pereira",
-        "addressRegion": "Risaralda", 
-        "addressCountry": "Colombia"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+573148851367",
-        "contactType": "customer service",
-        "areaServed": "CO",
-        "availableLanguage": "Spanish"
-      },
-      "slogan": "Transparencia en servicio y precios - Si lo revisamos, lo garantizamos"
-    }
-  </script>
 
 
 <section id="about-us">
     <!-- Header -->
     <div
-      class="relative w-full h-96 bg-cover bg-top bg-no-repeat flex items-center justify-center bg-[url('/images/pages/establecimiento.avif')]"
+      class="relative w-full h-64 md:h-96 bg-cover bg-top bg-no-repeat flex items-center justify-center bg-[url('/images/pages/establecimiento.avif')]"
     >
       <div class="absolute inset-0 bg-black/40"></div>
       <h1
@@ -161,3 +132,33 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
     </div>
   </section>
 </Layout>
+
+  <!-- Structured Data - Organization -->
+  <script is:inline type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Banco de Prueba Juan",
+      "foundingDate": "2010",
+      "founder": {
+        "@type": "Person",
+        "name": "Juan"
+      },
+      "description": "Empresa del sector automotriz fundada en el eje cafetero colombiano en el año 2010, especializada en la reparación de vehículos livianos en el área de enderezado y estética de chasis.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "CRA 14 (Av. Paralela) #27-04",
+        "addressLocality": "Pereira",
+        "addressRegion": "Risaralda", 
+        "addressCountry": "Colombia"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+573148851367",
+        "contactType": "customer service",
+        "areaServed": "CO",
+        "availableLanguage": "Spanish"
+      },
+      "slogan": "Transparencia en servicio y precios - Si lo revisamos, lo garantizamos"
+    }
+  </script>
