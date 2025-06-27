@@ -1,8 +1,15 @@
 ---
+import { Image } from "astro:assets";
+
 const images = [
-  "/images/portada/portada.avif",
-  "/images/portada/portada.avif",
-  "/images/portada/portada.avif",
+  "/images/galery/1.avif",
+  "/images/galery/2.avif",
+  "/images/galery/3.avif",
+  "/images/galery/4.avif",
+  "/images/galery/5.avif",
+  "/images/galery/6.avif",
+  "/images/galery/7.avif",
+  "/images/galery/8.avif",
 ];
 ---
 
@@ -18,11 +25,13 @@ const images = [
     {
       images.map((src: string, idx: number) => (
         <sl-carousel-item key={idx}>
-          <img
+          <Image
             src={src}
             alt={`Slide ${idx + 1}`}
             loading="lazy"
             class="w-full h-auto object-cover"
+            width={1920}
+            height={1080}
           />
         </sl-carousel-item>
       ))
@@ -34,4 +43,4 @@ const images = [
   is:inline
   type="module"
   src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/components/carousel/carousel.js"
-></script>
+/>
