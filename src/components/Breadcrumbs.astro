@@ -1,0 +1,54 @@
+---
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="py-4 px-10">
+  <ol class="flex flex-wrap items-center gap-2 text-sm text-tertiary">
+    <li>
+      <a href="/" class="hover:text-primary transition-colors">Inicio</a>
+    </li>
+    {items.map((item, index) => (
+      <li class="flex items-center gap-2">
+        <span>/</span>
+        {index === items.length - 1 ? (
+          <span class="text-primary font-semibold">{item.name}</span>
+        ) : (
+          <a href={item.url} class="hover:text-primary transition-colors">
+            {item.name}
+          </a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<!-- Structured Data for Breadcrumbs -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Inicio",
+        "item": "https://bancodepruebajuan.com/"
+      },
+      ...items.map((item, index) => ({
+        "@type": "ListItem",
+        "position": index + 2,
+        "name": item.name,
+        "item": `https://bancodepruebajuan.com${item.url}`
+      }))
+    ]
+  }
+</script>

@@ -4,8 +4,20 @@ import { CustomButton } from "./ui/CustomButton";
 
 <header
   id="header"
-  class="bg-[url('/images/portada/portadaMobile.avif')] sm:bg-[url('/images/portada/portadaTablet.avif')] lg:bg-[url('/images/portada/portada.avif')] bg-cover bg-no-repeat bg-top lg:bg-center h-[calc(100dvh-100px)]"
+  class="bg-[url('/images/portada/portadaMobile.avif')] sm:bg-[url('/images/portada/portadaTablet.avif')] lg:bg-[url('/images/portada/portada.avif')] bg-cover bg-no-repeat bg-top lg:bg-center h-[calc(100dvh-100px)] relative"
 >
+  <!-- SEO-friendly content overlay -->
+  <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-start p-10 md:p-16">
+    <div class="max-w-2xl">
+      <h1 class="text-4xl md:text-6xl font-bold text-white text-shadow mb-6">
+        Especialistas en Enderezado de Chasis en Pereira
+      </h1>
+      <p class="md:text-lg text-white text-shadow max-w-xl">
+        15 años de experiencia garantizando la seguridad y alineación perfecta de tu vehículo. Diagnóstico técnico confiable y garantía en cada trabajo.
+      </p>
+    </div>
+  </div>
+  
   <div
     class="absolute bottom-0 left-0 w-full md:w-1/2 h-[30%] flex max-md:flex-col gap-5 justify-center md:justify-around items-center px-10"
   >

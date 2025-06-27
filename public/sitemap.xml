@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://bancodepruebajuan.com/</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://bancodepruebajuan.com/images/portada/portada.avif</image:loc>
+      <image:title>Banco de Prueba Juan - Taller de enderezado de chasis</image:title>
+      <image:caption>Instalaciones del taller especializado en enderezado de chasis y alineación vehicular</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bancodepruebajuan.com/about</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://bancodepruebajuan.com/images/pages/establecimiento.avif</image:loc>
+      <image:title>Establecimiento Banco de Prueba Juan</image:title>
+      <image:caption>Vista del establecimiento donde ofrecemos servicios de enderezado de chasis</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://bancodepruebajuan.com/contact</loc>
+    <lastmod>2025-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+</urlset>

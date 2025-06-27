@@ -2,22 +2,30 @@
 import CardsContact from "../components/contact/CardsContact.astro";
 import Layout from "../layouts/Layout.astro";
 import Map from "../components/contact/Map.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 ---
 
-<Layout>
-  <section id="contact" class="min-h-screen">
+<Layout 
+  title="Contacto - Banco de Prueba Juan | Ubicación y Horarios en Pereira"
+  description="Contáctanos para servicios de enderezado de chasis en Pereira. Estamos ubicados en CRA 14 #27-04, Nuevo México. WhatsApp: 314 885 1367. Atención de lunes a sábado."
+  keywords="contacto Banco de Prueba Juan, ubicación taller Pereira, horarios atención, WhatsApp enderezado chasis, dirección Nuevo México Pereira"
+  canonical="https://bancodepruebajuan.com/contact"
+>
 
-    <!-- Header -->
+<section id="contact" class="min-h-screen">
+  
+  <!-- Header -->
     <div
-      class="relative w-full h-96 bg-cover bg-center bg-no-repeat flex items-center justify-center bg-[url('/images/portada/portada.avif')]"
+    class="relative w-full h-96 bg-cover bg-center bg-no-repeat flex items-center justify-center bg-[url('/images/portada/portada.avif')]"
     >
-      <div class="absolute inset-0 bg-black/40"></div>
-      <h1
+    <div class="absolute inset-0 bg-black/40"></div>
+    <h1
         class="relative z-10 text-4xl md:text-6xl font-bold text-white text-center text-shadow"
-      >
+        >
         Contáctanos
       </h1>
     </div>
+    <Breadcrumbs items={[{ name: "Contacto", url: "/contact" }]} />
 
     <!-- Cards de contacto -->
     <CardsContact />

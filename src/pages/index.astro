@@ -7,12 +7,19 @@ import Galery from "../components/Galery/Galery.astro";
 import CTA from "../components/CTA.astro";
 import Customers from "../components/customers/Customers.astro";
 import Blog from "../components/blog/Blog.astro";
+import FAQ from "../components/FAQ.astro";
 
 // Shoelace components
 import "@shoelace-style/shoelace/dist/themes/light.css"; // CSS de shoelace
 ---
 
-<Layout>
+<Layout 
+  title="Banco de Prueba Juan - Enderezado y Soldadura Automotriz en Pereira"
+  description="Especialistas en enderezado de chasis, alineación vehicular y soldadura estructural en Pereira. 15 años de experiencia garantizando la seguridad de tu vehículo. Servicio profesional y garantizado."
+  keywords="enderezado chasis Pereira, alineación vehicular Pereira, soldadura estructural, banco de prueba automotriz, reparación vehículos Pereira, mecánica automotriz Risaralda, taller enderezado"
+  image="/images/portada/portada.avif"
+  canonical="https://bancodepruebajuan.com/"
+>
   
   <Hero />
   <Services />
@@ -20,5 +27,6 @@ import "@shoelace-style/shoelace/dist/themes/light.css"; // CSS de shoelace
   <Galery />
   <Customers />
   <Blog />
+  <FAQ />
   <CTA />
 </Layout>

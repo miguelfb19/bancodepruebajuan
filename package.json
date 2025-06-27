@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.3.0",
+    "@astrojs/sitemap": "^3.4.1",
     "@shoelace-style/shoelace": "^2.20.1",
     "@tailwindcss/typography": "^0.0.0-insiders.0339c42",
     "@tailwindcss/vite": "^4.1.10",

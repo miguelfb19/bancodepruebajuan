@@ -1,10 +1,47 @@
 ---
 import { Mision, Values, Vision, WhoWeAre } from "../assets/icons";
 import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 ---
 
-<Layout>
-  <section id="about-us">
+<Layout 
+  title="Sobre Nosotros - Banco de Prueba Juan | Historia y Valores de Nuestra Empresa"
+  description="Conoce la historia de Banco de Prueba Juan, empresa especializada en enderezado de chasis desde 2010 en Pereira. Descubre nuestra misión, visión y valores que nos guían hacia la excelencia."
+  keywords="historia Banco de Prueba Juan, empresa enderezado Pereira, misión visión valores, taller automotriz Risaralda, experiencia enderezado chasis"
+  canonical="https://bancodepruebajuan.com/about"
+>
+  <!-- Structured Data - Organization -->
+  <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Banco de Prueba Juan",
+      "foundingDate": "2010",
+      "founder": {
+        "@type": "Person",
+        "name": "Juan"
+      },
+      "description": "Empresa del sector automotriz fundada en el eje cafetero colombiano en el año 2010, especializada en la reparación de vehículos livianos en el área de enderezado y estética de chasis.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "CRA 14 (Av. Paralela) #27-04",
+        "addressLocality": "Pereira",
+        "addressRegion": "Risaralda", 
+        "addressCountry": "Colombia"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+573148851367",
+        "contactType": "customer service",
+        "areaServed": "CO",
+        "availableLanguage": "Spanish"
+      },
+      "slogan": "Transparencia en servicio y precios - Si lo revisamos, lo garantizamos"
+    }
+  </script>
+
+
+<section id="about-us">
     <!-- Header -->
     <div
       class="relative w-full h-96 bg-cover bg-top bg-no-repeat flex items-center justify-center bg-[url('/images/pages/establecimiento.avif')]"
@@ -16,6 +53,7 @@ import Layout from "../layouts/Layout.astro";
         Sobre Nosotros
       </h1>
     </div>
+    <Breadcrumbs items={[{ name: "Sobre Nosotros", url: "/about" }]} />
 
     <div id="content-container" class="p-10">
       <!-- Quienes somos -->

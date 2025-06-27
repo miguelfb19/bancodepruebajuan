@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /api/
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://bancodepruebajuan.com/sitemap.xml
+Sitemap: https://bancodepruebajuan.com/sitemap-0.xml
+
+# Host preference
+Host: https://bancodepruebajuan.com
