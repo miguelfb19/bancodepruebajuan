@@ -22,8 +22,8 @@ export const ServiceCard = ({ service }: Props) => {
         <h3 className="font-bold text-2xl mb-5 text-center">{name}</h3>
         <div className="h-96 w-full rounded-xl mb-5">
           <img
-            src={picture || "/portadaMobile.avif"}
-            alt={`imagen de servicio ${name}`}
+            src={picture || "/images/portada/portadaMobile.avif"}
+            alt={`Servicio de ${name} - Banco de Prueba Juan`}
             loading="lazy"
             className="w-full h-full object-cover rounded-xl"
           />
@@ -47,8 +47,8 @@ export const ServiceCard = ({ service }: Props) => {
       >
         <div className="flex flex-col gap-3 overflow-hidden">
           <img
-            src={picture || "/portadaMobile.avif"}
-            alt={`imagen de servicio ${name}`}
+            src={picture || "/images/portada/portadaMobile.avif"}
+            alt={`Servicio de ${name} - Banco de Prueba Juan`}
             loading="lazy"
             className="max-w-full h-48 object-cover rounded-t-xl"
           />

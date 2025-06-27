@@ -13,7 +13,7 @@ export const TopMenu = () => {
       <a href="/" className="w-full">
         <img
           src="/images/logo/logox500.avif"
-          alt="logo de banco de prueba juan"
+          alt="Logo Banco de Prueba Juan - Especialistas en enderezado de chasis"
           className="w-14 bg-white rounded-full"
         />
       </a>

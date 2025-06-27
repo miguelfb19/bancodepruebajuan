@@ -35,6 +35,6 @@ export const articles: Article[] = [
       "En Pereira, los talleres mejor calificados en 2025 para alineación y balanceo con tecnología avanzada, atención profesional y garantías.",
     content:  Recomendaciones,
     ref: "https://www.c3carecarcenter.com/blog/alineacion-y-balanceo-en-pereira-precios-y-servicios-destacados/",
-    image: "/images/portada/portada.avif",
+    image: "/images/blog/recomendaciones.avif",
   },
 ];
