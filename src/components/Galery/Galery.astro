@@ -21,7 +21,7 @@ const images = [
     Nuestro trabajo
   </h2>
 
-  <sl-carousel pagination navigation mouse-dragging loop autoplay>
+  <sl-carousel pagination navigation mouse-dragging loop autoplay class="galery-carousel">
     {
       images.map((src: string, idx: number) => (
         <sl-carousel-item key={idx}>
@@ -38,6 +38,15 @@ const images = [
     }
   </sl-carousel>
 </section>
+
+<style>
+  /* Ocultar la navegación en pantallas pequeñas (menos de 768px) */
+  @media (max-width: 767px) {
+    .galery-carousel::part(navigation-button) {
+      display: none !important;
+    }
+  }
+</style>
 
 <script
   is:inline
