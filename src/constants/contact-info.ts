@@ -16,7 +16,7 @@ export const contactInfo = [
     icon: Facebook,
     title: "Facebook",
     description: "Banco de Prueba JUAN",
-    link: "https://www.facebook.com/bancodepruebajuan",
+    link: "https://web.facebook.com/BancodepruebaPereira",
   },
   {
     icon: Instagram,
