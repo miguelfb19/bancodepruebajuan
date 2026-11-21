@@ -1,10 +1,12 @@
 ---
 import Icon from "./ui/Icon.astro";
-import { siteConfig } from "../config/site";
+import Button from "./ui/Button.astro";
+import { siteConfig, whatsappUrl } from "../config/site";
 
 const links = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
+  { href: "/diagnostico", label: "Diagnóstico" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "Nosotros" },
   { href: "/contact", label: "Contacto" },
@@ -14,75 +16,163 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const isActive = (href: string) => (href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`));
 ---
 
-<header
-  id="menu"
-  class="site-header sticky top-0 left-0 z-30 flex w-full items-center px-5 bg-primary text-white border-b border-white/10"
->
-  <a href="/" class="flex-1 flex items-center" aria-label={`${siteConfig.name} - Inicio`}>
-    <img
-      src="/images/logo/logox500.avif"
-      alt={`Logo ${siteConfig.name}`}
-      class="w-14 h-14 bg-white rounded-full"
-      width="56"
-      height="56"
-      fetchpriority="high"
-      decoding="async"
-    />
-  </a>
+<header id="menu" class="site-header sticky top-0 left-0 z-30 w-full text-white">
+  <div class="h-full flex items-center gap-4 px-5 md:px-8">
+    <!-- Marca -->
+    <a href="/" class="flex items-center gap-3 shrink-0" aria-label={`${siteConfig.name} - Inicio`}>
+      <span class="brand-logo grid place-items-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white">
+        <img src="/images/logo/logox500.avif" alt="" class="w-10 h-10 md:w-12 md:h-12" width="48" height="48" fetchpriority="high" decoding="async" />
+      </span>
+      <span class="hidden sm:flex flex-col leading-none">
+        <span class="font-display text-2xl md:text-[1.7rem] font-bold tracking-tight">Banco de Prueba <span class="text-secondary">Juan</span></span>
+        <span class="text-[0.7rem] text-white/60 tracking-wide">Enderezado y soldadura automotriz · Pereira</span>
+      </span>
+    </a>
 
-  <nav class="hidden md:flex gap-6 font-semibold" aria-label="Principal">
-    {links.map((l) => (
-      <a class="menu-item" href={l.href} aria-current={isActive(l.href) ? "page" : undefined}>
-        {l.label}
-      </a>
-    ))}
-  </nav>
-
-  <button
-    id="menu-open"
-    type="button"
-    class="flex md:hidden"
-    aria-label="Abrir menú"
-    aria-controls="mobile-menu"
-    aria-expanded="false"
-  >
-    <Icon name="barsMenu" size={30} />
-  </button>
-
-  <div
-    id="mobile-menu"
-    class="metal-dark fixed top-0 right-0 z-20 h-dvh md:hidden flex flex-col w-full items-center px-5 pt-24 text-white transition-transform duration-200 translate-x-full"
-    inert
-  >
-    <nav class="mobile-nav flex flex-col gap-10 font-semibold text-center" aria-label="Principal móvil">
+    <!-- Navegación desktop: barra mecanizada -->
+    <nav class="nav-rail hidden lg:flex items-center gap-1 ml-auto rounded-full p-1" aria-label="Principal">
       {links.map((l) => (
-        <a class="menu-item" href={l.href} data-menu-link aria-current={isActive(l.href) ? "page" : undefined}>
+        <a class="nav-link" href={l.href} aria-current={isActive(l.href) ? "page" : undefined}>
           {l.label}
         </a>
       ))}
     </nav>
-    <button id="menu-close" type="button" class="absolute top-5 right-5" aria-label="Cerrar menú">
-      <Icon name="closeX" size={35} />
+
+    <div class="hidden lg:block">
+      <Button href={whatsappUrl} external variant="btn-3" size="sm" icon="whatsapp" iconClass="w-4 h-4">Cotizar</Button>
+    </div>
+
+    <!-- Botón móvil -->
+    <button
+      id="menu-open"
+      type="button"
+      class="menu-toggle lg:hidden ml-auto grid place-items-center w-11 h-11 rounded-full"
+      aria-label="Abrir menú"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+    >
+      <Icon name="barsMenu" size={22} />
     </button>
+  </div>
+
+  <!-- Panel móvil -->
+  <div
+    id="mobile-menu"
+    class="metal-dark fixed inset-0 z-40 lg:hidden flex flex-col text-white transition-transform duration-300 translate-x-full"
+    inert
+  >
+    <div class="flex items-center justify-between px-5 h-20">
+      <span class="font-display text-2xl font-bold">Banco de Prueba <span class="text-secondary">Juan</span></span>
+      <button id="menu-close" type="button" class="menu-toggle grid place-items-center w-11 h-11 rounded-full" aria-label="Cerrar menú">
+        <Icon name="closeX" size={20} />
+      </button>
+    </div>
+    <nav class="mobile-nav flex-1 flex flex-col justify-center px-8" aria-label="Principal móvil">
+      {links.map((l, i) => (
+        <a class="mobile-link" href={l.href} data-menu-link aria-current={isActive(l.href) ? "page" : undefined}>
+          <span class="font-display tabular text-sm text-white/40 w-8">{String(i + 1).padStart(2, "0")}</span>
+          <span class="font-display text-4xl font-bold">{l.label}</span>
+        </a>
+      ))}
+    </nav>
+    <div class="px-8 pb-10 flex flex-col gap-4">
+      <Button href={whatsappUrl} external variant="btn-3" size="lg" icon="whatsapp" iconClass="w-6 h-6">Cotizar por WhatsApp</Button>
+      <p class="text-white/60 text-sm text-center">{siteConfig.address.street} · {siteConfig.address.city}</p>
+    </div>
   </div>
 </header>
 
 <style>
+  .brand-logo {
+    box-shadow:
+      inset 0 2px 4px rgb(255 255 255 / 0.9),
+      inset 0 -2px 4px rgb(14 26 47 / 0.25),
+      0 0 0 1px rgb(255 255 255 / 0.25);
+  }
+  /* Riel de navegación: canal fresado con los enlaces como piezas */
+  .nav-rail {
+    background: rgb(0 0 0 / 0.25);
+    box-shadow:
+      inset 0 1px 2px rgb(0 0 0 / 0.5),
+      inset 0 -1px 0 rgb(255 255 255 / 0.08);
+  }
+  .nav-link {
+    position: relative;
+    padding: 0.45rem 0.95rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: rgb(255 255 255 / 0.8);
+    transition:
+      color var(--dur-micro) var(--ease-firm),
+      background-color var(--dur-micro) var(--ease-firm);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .nav-link:hover {
+      color: #fff;
+      background-color: rgb(255 255 255 / 0.08);
+    }
+  }
+  .nav-link[aria-current="page"] {
+    color: var(--color-primary);
+    background-color: var(--color-steel-100);
+    background-image:
+      repeating-linear-gradient(175deg, rgb(255 255 255 / 0.45) 0 1px, transparent 1px 3px),
+      linear-gradient(180deg, #fff, var(--color-steel-200));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.9),
+      inset 0 -1px 0 rgb(14 26 47 / 0.15),
+      0 1px 2px rgb(0 0 0 / 0.4);
+  }
+  .nav-link[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0.3rem;
+    width: 1.1rem;
+    height: 2px;
+    translate: -50% 0;
+    border-radius: 2px;
+    background: var(--color-secondary);
+  }
+  .menu-toggle {
+    background: rgb(255 255 255 / 0.06);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.15),
+      inset 0 -1px 0 rgb(0 0 0 / 0.4),
+      0 0 0 1px rgb(255 255 255 / 0.1);
+    cursor: pointer;
+  }
+  .mobile-link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+    color: rgb(255 255 255 / 0.85);
+  }
+  .mobile-link[aria-current="page"] {
+    color: #fff;
+  }
+  .mobile-link[aria-current="page"] > span:last-child {
+    color: var(--color-secondary);
+  }
   /* Entradas escalonadas al abrir el menú móvil */
   @media (prefers-reduced-motion: no-preference) {
     #mobile-menu:not([inert]) .mobile-nav > a {
-      animation: reveal-up 320ms var(--ease-firm) both;
+      animation: reveal-up 320ms cubic-bezier(0.23, 1, 0.32, 1) both;
     }
     @supports (animation-delay: calc(sibling-index() * 0.1s)) {
       #mobile-menu:not([inert]) .mobile-nav > a {
-        animation-delay: calc(sibling-index() * 40ms);
+        animation-delay: calc(sibling-index() * 45ms);
       }
     }
     @supports not (animation-delay: calc(sibling-index() * 0.1s)) {
-      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(2) { animation-delay: 40ms; }
-      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(3) { animation-delay: 80ms; }
-      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(4) { animation-delay: 120ms; }
-      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(5) { animation-delay: 160ms; }
+      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(2) { animation-delay: 45ms; }
+      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(3) { animation-delay: 90ms; }
+      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(4) { animation-delay: 135ms; }
+      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(5) { animation-delay: 180ms; }
+      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(6) { animation-delay: 225ms; }
     }
   }
 </style>
@@ -109,7 +199,6 @@ const isActive = (href: string) => (href === "/" ? path === "/" : path === href 
     if (e.key === "Escape" && menu && !menu.hasAttribute("inert")) setOpen(false);
   });
 
-  // Cierre con swipe hacia la derecha
   let startX = 0;
   menu?.addEventListener("touchstart", (e) => (startX = e.touches[0].clientX), { passive: true });
   menu?.addEventListener(

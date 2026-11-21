@@ -201,26 +201,6 @@ body {
   }
 }
 
-.menu-item {
-  @apply relative hover:text-secondary transition-colors duration-200 max-md:text-2xl;
-}
-/* Subrayado rojo que crece desde el centro (hover y activo) */
-.menu-item::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.35rem;
-  height: 2px;
-  background: var(--color-secondary);
-  scale: 0 1;
-  transform-origin: center;
-  transition: scale 200ms var(--ease-firm);
-}
-.menu-item:hover::after,
-.menu-item[aria-current="page"]::after {
-  scale: 1 1;
-}
 
 .text-shadow {
   text-shadow: 2px 2px 8px rgb(0 0 0 / 0.6);
@@ -343,6 +323,10 @@ body {
 
 /* Título con degradado primary → secondary */
 .heading-gradient {
+  /* Con background-clip:text, el fondo solo cubre la caja de línea: damos aire para "¿", "Q", "g" */
+  line-height: 1.08;
+  padding: 0.06em 0.08em;
+  margin: -0.06em -0.08em;
   background-image: linear-gradient(
     to right,
     var(--color-primary),
@@ -375,6 +359,11 @@ body {
 .site-header {
   --header-h: 6rem;
   height: var(--header-h);
+  background-color: var(--color-primary);
+  background-image: linear-gradient(180deg, var(--color-primary-700), var(--color-primary));
+  box-shadow:
+    inset 0 -1px 0 rgb(255 255 255 / 0.08),
+    0 1px 0 rgb(0 0 0 / 0.3);
 }
 @media (max-width: 767px) {
   .site-header {
