@@ -21,9 +21,18 @@ import portada from "../assets/images/portada/portada.avif";
 
   <div class="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-primary/10 md:to-transparent"></div>
 
+  <!-- Titular en la zona navy superior derecha (como en la portada original) -->
+  <p
+    aria-hidden="true"
+    class="hidden md:flex absolute top-[7%] right-[6%] lg:right-[8%] z-10 flex-col items-end text-right text-white text-shadow leading-none select-none"
+  >
+    <span class="text-3xl lg:text-5xl font-light tracking-wide">Enderezado y soldadura</span>
+    <span class="text-5xl lg:text-7xl font-extrabold tracking-tight text-steel">AUTOMOTRIZ</span>
+  </p>
+
   <div class="relative z-10 h-full flex flex-col justify-center gap-8 p-8 md:p-16 max-w-3xl">
     <div>
-      <p class="uppercase tracking-[0.3em] text-xs md:text-sm text-white/80 mb-4">Enderezado y soldadura automotriz · Pereira</p>
+      <p class="md:hidden uppercase tracking-[0.3em] text-xs text-white/80 mb-4">Enderezado y soldadura automotriz · Pereira</p>
       <h1 class="text-4xl md:text-6xl font-bold text-white text-shadow mb-6 leading-tight">
         Especialistas en Enderezado de Chasis en Pereira
       </h1>
