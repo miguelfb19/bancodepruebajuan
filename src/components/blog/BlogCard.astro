@@ -82,7 +82,6 @@ const closeButtonId = `close-btn-${safeRef}`;
       if (drawer) {
         // Agregar evento click a la tarjeta
         card.addEventListener("click", () => {
-          console.log(`Opening drawer: ${drawerId}`);
           // Usar el método show de Shoelace
           drawer.show();
         });
@@ -91,7 +90,6 @@ const closeButtonId = `close-btn-${safeRef}`;
         const closeButton = drawer.querySelector(".drawer-close");
         if (closeButton) {
           closeButton.addEventListener("click", () => {
-            console.log(`Closing drawer: ${drawerId}`);
             // Usar el método hide de Shoelace
             drawer.hide();
           });

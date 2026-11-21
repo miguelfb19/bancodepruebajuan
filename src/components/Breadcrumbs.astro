@@ -1,4 +1,6 @@
 ---
+import { absoluteUrl } from "../config/site";
+
 interface BreadcrumbItem {
   name: string;
   url: string;
@@ -9,6 +11,20 @@ interface Props {
 }
 
 const { items } = Astro.props;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: absoluteUrl("/") },
+    ...items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 2,
+      name: item.name,
+      item: absoluteUrl(item.url),
+    })),
+  ],
+};
 ---
 
 <nav aria-label="Breadcrumb" class="py-4 px-10">
@@ -18,37 +34,15 @@ const { items } = Astro.props;
     </li>
     {items.map((item, index) => (
       <li class="flex items-center gap-2">
-        <span>/</span>
+        <span aria-hidden="true">/</span>
         {index === items.length - 1 ? (
-          <span class="text-primary font-semibold">{item.name}</span>
+          <span class="text-primary font-semibold" aria-current="page">{item.name}</span>
         ) : (
-          <a href={item.url} class="hover:text-primary transition-colors">
-            {item.name}
-          </a>
+          <a href={item.url} class="hover:text-primary transition-colors">{item.name}</a>
         )}
       </li>
     ))}
   </ol>
 </nav>
 
-<!-- Structured Data for Breadcrumbs -->
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Inicio",
-        "item": "https://bancodepruebajuan.com/"
-      },
-      ...items.map((item, index) => ({
-        "@type": "ListItem",
-        "position": index + 2,
-        "name": item.name,
-        "item": `https://bancodepruebajuan.com${item.url}`
-      }))
-    ]
-  }
-</script>
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

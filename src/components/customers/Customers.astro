@@ -2,6 +2,7 @@
 import { LinkOut } from "../../assets/icons";
 import { customersComments } from "../../constants/customers";
 import CustomerCard from "./CustomerCard.astro";
+import { siteConfig } from "../../config/site";
 ---
 
 <section id="customers" class="flex flex-col gap-10 py-20 px-10">
@@ -16,8 +17,9 @@ import CustomerCard from "./CustomerCard.astro";
   </div>
 
   <a
-    href="https://www.google.com/search?sca_esv=6db176930c53557b&rlz=1C5CHFA_enCO1093CO1093&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E59r5dZk7ZdsmP6JQEnYKrZXeZ4UC8KymOJMgBdoloKQuySQMBfcCCyK9WJglGt77sCN5nJBP05XNN1bb-3A6GD_vaOsIRAJHiro0nvpu_K-GoG5Uw%3D%3D&q=Banco+de+Prueba+JUAN+Opiniones&sa=X&ved=2ahUKEwjtnJmC24yOAxWfSzABHUXUDi4Q0bkNegQIJxAE&biw=1440&bih=754&dpr=1"
+    href={siteConfig.social.googleReviews}
     target="_blank"
+    rel="noopener noreferrer"
     class="text-sm text-primary underline text-center flex justify-center gap-2"
   >Ver más opiniones <LinkOut/></a>
 </section>

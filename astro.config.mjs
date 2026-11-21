@@ -1,31 +1,29 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
-
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
+const SITE_URL = "https://www.bancodepruebajuan.com";
+
 // https://astro.build/config
 export default defineConfig({
+  site: SITE_URL,
+  trailingSlash: "never",
   vite: {
-      plugins: [tailwindcss()],
+    plugins: [tailwindcss()],
   },
-
   integrations: [
-    react(), 
+    react(),
     sitemap({
-      customPages: [
-        'https://bancodepruebajuan.com/',
-        'https://bancodepruebajuan.com/about',
-        'https://bancodepruebajuan.com/contact'
-      ],
       i18n: {
-        defaultLocale: 'es',
-        locales: {
-          es: 'es-CO'
-        }
-      }
-    })
+        defaultLocale: "es",
+        locales: { es: "es-CO" },
+      },
+      serialize(item) {
+        item.lastmod = new Date().toISOString();
+        return item;
+      },
+    }),
   ],
-  site: 'https://bancodepruebajuan.com',
 });

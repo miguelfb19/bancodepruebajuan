@@ -1,6 +1,7 @@
 ---
 import { Whatsapp } from "../assets/icons";
 import { CustomButton } from "./ui/CustomButton";
+import { whatsappUrl } from "../config/site";
 ---
 
 <section id="cta" class="flex flex-col gap-20 py-20 px-10">
@@ -12,7 +13,7 @@ import { CustomButton } from "./ui/CustomButton";
   <CustomButton
     text={`Contáctanos ahora`}
     link
-    href="https://wa.me/573148851367"
+    href={whatsappUrl}
     className="text-white text-2xl !py-8"
     icon={Whatsapp}
     iconClass="w-12 h-12 md:w-7 md:h-7"

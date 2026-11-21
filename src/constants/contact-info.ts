@@ -1,46 +1,59 @@
-import { Mail } from "../assets/icons";
-import { Whatsapp } from "../assets/icons";
-import { Facebook } from "../assets/icons";
-import { Instagram } from "../assets/icons";
-import { Pin } from "../assets/icons";
-import { Phone } from "../assets/icons";
+import type { ElementType } from "react";
+import { Mail, Whatsapp, Facebook, Instagram, Pin, Phone } from "../assets/icons";
+import { siteConfig, whatsappUrl, telUrl, mailtoUrl } from "../config/site";
 
-export const contactInfo = [
+export interface ContactItem {
+  icon: ElementType;
+  title: string;
+  description: string;
+  link: string;
+  /** Solo los enlaces a sitios externos abren en pestaña nueva. */
+  external: boolean;
+}
+
+const { contact, social, address } = siteConfig;
+
+export const contactInfo: ContactItem[] = [
   {
     icon: Whatsapp,
-    title: "Teléfono",
-    description: "+57 3148851367",
-    link: "https://wa.me/573148851367",
+    title: "WhatsApp",
+    description: contact.whatsappDisplay,
+    link: whatsappUrl,
+    external: true,
   },
   {
     icon: Facebook,
     title: "Facebook",
-    description: "Banco de Prueba JUAN",
-    link: "https://web.facebook.com/BancodepruebaPereira",
+    description: social.facebookHandle,
+    link: social.facebook,
+    external: true,
   },
   {
     icon: Instagram,
     title: "Instagram",
-    description: "@bancodepruebajuan",
-    link: "https://www.instagram.com/bancodepruebajuan",
+    description: social.instagramHandle,
+    link: social.instagram,
+    external: true,
   },
   {
     icon: Phone,
-    title: "Teléfono",
-    description: "606 3302804",
-    link: "tel:6063302804",
+    title: "Teléfono fijo",
+    description: contact.landlineDisplay,
+    link: telUrl,
+    external: false,
   },
   {
     icon: Mail,
     title: "Email",
-    description: "bancodepruebajuan@gmail.com",
-    link: "mailto:bancodepruebajuan@gmail.com",
+    description: contact.email,
+    link: mailtoUrl,
+    external: false,
   },
   {
     icon: Pin,
     title: "Dirección",
-    description: `CRA 14 (Av. Paralela) #27-04
-    Nuevo México, Pereira`,
-    link: "https://maps.app.goo.gl/utcaUDkT4vEybPHKA",
+    description: `${address.street}\n${address.neighborhood}, ${address.city}`,
+    link: address.mapsUrl,
+    external: true,
   },
-]
+];
