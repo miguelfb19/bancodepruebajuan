@@ -1,19 +1,47 @@
 ---
+/**
+ * Mapa diferido: no carga el iframe de Google (≈300 KB) hasta que el usuario lo pide.
+ * Mientras tanto muestra una tarjeta con dirección y accesos directos.
+ */
 import { siteConfig } from "../../config/site";
+import Button from "../ui/Button.astro";
+import Icon from "../ui/Icon.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+
+const { address } = siteConfig;
+const wazeUrl = `https://waze.com/ul?ll=${siteConfig.geo.latitude},${siteConfig.geo.longitude}&navigate=yes`;
 ---
 
-<div class="bg-primary py-20">
-  <h2 class="text-3xl font-bold text-white text-center mb-10">
-    ¿Dónde estamos ubicados?
-  </h2>
-  <iframe
-    title={`Ubicación de ${siteConfig.name} en Google Maps`}
-    class="rounded-lg shadow-lg m-auto"
-    src={siteConfig.address.mapsEmbedUrl}
-    width="90%"
-    height="500"
-    style="border:0;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
+<section class="metal-dark py-20 px-6 flex flex-col gap-10 items-center" aria-labelledby="map-title">
+  <SectionHeading id="map-title" eyebrow="Ubicación" title="¿Dónde estamos ubicados?" tone="dark" />
+
+  <div id="map-slot" class="w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl">
+    <div class="metal-brushed rivets flex flex-col items-center justify-center text-center gap-5 p-10 min-h-[22rem] text-primary">
+      <span class="metal-badge w-16 h-16 rounded-full grid place-items-center"><Icon name="pin" size={32} /></span>
+      <p class="font-display text-3xl font-bold leading-none">{address.street}</p>
+      <p class="text-tertiary">{address.neighborhood}, {address.city}, {address.region}</p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <Button id="map-load" type="button" size="sm">Cargar mapa</Button>
+        <Button href={address.mapsUrl} external size="sm" variant="btn-2">Abrir en Google Maps</Button>
+        <Button href={wazeUrl} external size="sm" variant="btn-2">Abrir en Waze</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ src: siteConfig.address.mapsEmbedUrl, siteName: siteConfig.name }}>
+  document.getElementById("map-load")?.addEventListener("click", () => {
+    const slot = document.getElementById("map-slot");
+    if (!slot) return;
+    const iframe = document.createElement("iframe");
+    iframe.src = src;
+    iframe.title = `Ubicación de ${siteName} en Google Maps`;
+    iframe.width = "100%";
+    iframe.height = "500";
+    iframe.style.border = "0";
+    iframe.loading = "lazy";
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = "no-referrer-when-downgrade";
+    slot.replaceChildren(iframe);
+  });
+</script>

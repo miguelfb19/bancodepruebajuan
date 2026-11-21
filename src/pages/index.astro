@@ -9,12 +9,18 @@ import Customers from "../components/customers/Customers.astro";
 import Blog from "../components/blog/Blog.astro";
 import FAQ from "../components/FAQ.astro";
 import { siteConfig } from "../config/site";
+import { getImage } from "astro:assets";
+import portada from "../assets/images/portada/portada.avif";
+
+// Preload del LCP con el mismo srcset que renderiza <Hero/>.
+const heroImg = await getImage({ src: portada, width: 1920, widths: [640, 960, 1280, 1920, 2880], format: "avif", quality: 60 });
 ---
 
 <Layout
   title={siteConfig.defaultTitle}
   description="Especialistas en enderezado de chasis, banco de prueba y soldadura estructural en Pereira. 15 años de experiencia garantizando la seguridad de tu vehículo. Servicio profesional y garantizado."
 >
+  <link slot="head" rel="preload" as="image" imagesrcset={heroImg.srcSet.attribute} imagesizes="100vw" fetchpriority="high" />
   <Hero />
   <Services />
   <Experience />

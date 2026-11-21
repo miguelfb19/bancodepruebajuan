@@ -1,0 +1,21 @@
+---
+/** Medallón metálico para iconos. */
+import Icon from "./Icon.astro";
+import type { IconName } from "../../assets/icons";
+
+interface Props {
+  icon: IconName;
+  size?: number;
+  class?: string;
+  label?: string;
+}
+const { icon, size = 28, class: className, label } = Astro.props;
+const box = Math.round(size * 1.9);
+---
+
+<span
+  class:list={["metal-badge rounded-full grid place-items-center text-primary shrink-0", className]}
+  style={`width:${box}px;height:${box}px`}
+>
+  <Icon name={icon} size={size} label={label} />
+</span>

@@ -1,36 +1,83 @@
 ---
 import { contactInfo, type ContactItem } from "../../constants/contact-info";
+import Badge from "../ui/Badge.astro";
+import Card from "../ui/Card.astro";
 import Icon from "../ui/Icon.astro";
+import OpenStatus from "../ui/OpenStatus.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import { siteConfig } from "../../config/site";
 
 const columns: ContactItem[][] = [contactInfo.slice(0, 3), contactInfo.slice(3)];
+/** Valor que se copia al portapapeles por tipo de tarjeta. */
+const copyValue = (info: ContactItem) =>
+  info.title === "Dirección" ? `${siteConfig.address.street}, ${siteConfig.address.neighborhood}, ${siteConfig.address.city}` :
+  info.title === "Email" ? siteConfig.contact.email :
+  info.title === "WhatsApp" ? `+${siteConfig.contact.whatsapp}` :
+  info.title === "Teléfono fijo" ? siteConfig.contact.landlineDisplay : null;
 ---
 
-<div class="flex flex-col text-center mt-10 gap-10 pb-20">
-  <div>
-    <h2 class="text-4xl font-bold text-primary">Ponte en contacto</h2>
+<div class="flex flex-col text-center mt-10 gap-10 pb-20 px-4">
+  <SectionHeading eyebrow="Contacto" title="Ponte en contacto" />
+  <div class="flex flex-col items-center gap-3">
     <p class="text-tertiary text-lg">Estamos aquí para ayudarte con tu vehículo.</p>
+    <OpenStatus tone="light" />
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:justify-items-center">
+  <div class="stagger grid grid-cols-1 md:grid-cols-2 gap-6 md:justify-items-center">
     {columns.map((column) => (
-      <div class="space-y-6 text-left">
-        {column.map((info) => (
-          <a
-            href={info.link}
-            target={info.external ? "_blank" : undefined}
-            rel={info.external ? "noopener noreferrer" : undefined}
-            class="flex items-center gap-4 md:min-w-[22rem] rounded-2xl shadow-lg p-4 hover:scale-[101%] hover:shadow-xl transition-transform duration-200"
-          >
-            <div class="metal-badge w-12 h-12 rounded-full flex items-center justify-center text-primary shadow-lg">
-              <Icon name={info.icon} size={25} />
-            </div>
-            <div>
-              <h3 class="font-semibold text-primary">{info.title}</h3>
-              <p class="text-tertiary whitespace-pre-line">{info.description}</p>
-            </div>
-          </a>
-        ))}
+      <div class="space-y-6 text-left w-full md:max-w-md">
+        {column.map((info) => {
+          const value = copyValue(info);
+          return (
+            <Card finish="polished" interactive class="flex items-center gap-4 p-4">
+              <a
+                href={info.link}
+                target={info.external ? "_blank" : undefined}
+                rel={info.external ? "noopener noreferrer" : undefined}
+                class="flex items-center gap-4 flex-1 min-w-0"
+              >
+                <Badge icon={info.icon} size={24} />
+                <span class="min-w-0">
+                  <span class="block font-display font-semibold text-xl text-primary leading-none">{info.title}</span>
+                  <span class="block text-tertiary whitespace-pre-line text-sm mt-1">{info.description}</span>
+                </span>
+              </a>
+              {value && (
+                <button
+                  type="button"
+                  class="shrink-0 w-10 h-10 rounded-full metal-badge grid place-items-center text-primary hover:text-secondary-strong"
+                  data-copy={value}
+                  aria-label={`Copiar ${info.title.toLowerCase()}`}
+                >
+                  <Icon name="linkOut" size={18} />
+                </button>
+              )}
+            </Card>
+          );
+        })}
       </div>
     ))}
   </div>
 </div>
+
+<div class="toast" role="status" aria-live="polite" id="copy-toast"></div>
+
+<script>
+  const toast = document.getElementById("copy-toast");
+  let timer: number | undefined;
+  document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy || "");
+        if (toast) {
+          toast.textContent = "Copiado";
+          toast.setAttribute("data-show", "");
+          window.clearTimeout(timer);
+          timer = window.setTimeout(() => toast.removeAttribute("data-show"), 1600);
+        }
+      } catch {
+        /* Sin permiso de portapapeles: el enlace sigue funcionando */
+      }
+    });
+  });
+</script>

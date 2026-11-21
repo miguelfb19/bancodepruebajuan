@@ -35,7 +35,7 @@ const itemListSchema = {
       la alineación funcione, el peritaje se apruebe y el carro vuelva a ser seguro. Atendemos vehículos
       livianos en Pereira y el Eje Cafetero.
     </p>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+    <div class="stagger grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       {services.map((service, i) => <ServiceCard service={service} eager={i === 0} />)}
     </div>
   </section>

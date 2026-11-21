@@ -1,12 +1,14 @@
 ---
 import Icon from "./ui/Icon.astro";
 import { siteConfig } from "../config/site";
+import { services } from "../constants/services";
 
 const { social, openingHoursDisplay, name } = siteConfig;
 const year = new Date().getFullYear();
 ---
 
-<footer class="p-2 flex flex-col bg-primary text-white">
+<footer class="metal-dark p-2 flex flex-col text-white">
+  <span aria-hidden="true" class="rule text-white w-full"></span>
   <div class="flex flex-col gap-10 p-10 items-center">
     <div class="grid grid-cols-1 md:grid-cols-3 max-md:gap-10 items-center justify-center w-full">
       <!-- Logo y redes -->
@@ -28,19 +30,21 @@ const year = new Date().getFullYear();
 
       <!-- Horarios -->
       <div class="flex flex-col gap-3">
-        <h3 class="font-bold text-xl">Horarios</h3>
+        <h3 class="font-display font-bold text-2xl">Horarios</h3>
         {openingHoursDisplay.map((h) => (
           <p><strong>{h.label}:</strong> {h.value}</p>
         ))}
+        <p class="text-white/70 text-sm mt-2">{siteConfig.address.street}<br />{siteConfig.address.neighborhood}, {siteConfig.address.city}</p>
       </div>
 
       <!-- Enlaces de interés -->
-      <nav class="flex flex-col gap-3" aria-label="Enlaces de interés">
-        <h3 class="font-bold text-xl">Enlaces de interés</h3>
-        <a href="/contact" class="underline">Contáctanos</a>
-        <a href="/about" class="underline">Sobre nosotros</a>
-        <a href="/blog" class="underline">Blog</a>
-        <a href="/servicios" class="underline">Servicios</a>
+      <nav class="flex flex-col gap-3" aria-label="Mapa del sitio">
+        <h3 class="font-display font-bold text-2xl">Servicios</h3>
+        {services.map((s) => <a href={`/servicios/${s.slug}`} class="underline hover:text-secondary">{s.name}</a>)}
+        <h3 class="font-display font-bold text-2xl mt-2">Más</h3>
+        <a href="/blog" class="underline hover:text-secondary">Blog</a>
+        <a href="/about" class="underline hover:text-secondary">Sobre nosotros</a>
+        <a href="/contact" class="underline hover:text-secondary">Contáctanos</a>
       </nav>
     </div>
     <p class="text-center">© {year} {name}. Todos los derechos reservados.</p>

@@ -9,13 +9,16 @@ const links = [
   { href: "/about", label: "Nosotros" },
   { href: "/contact", label: "Contacto" },
 ];
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) => (href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`));
 ---
 
-<div
+<header
   id="menu"
-  class="sticky top-0 left-0 z-30 md:static flex w-full h-20 md:h-24 items-center px-5 bg-primary text-white border-b-2 border-tertiary"
+  class="site-header sticky top-0 left-0 z-30 flex w-full items-center px-5 bg-primary text-white border-b border-white/10"
 >
-  <a href="/" class="w-full" aria-label={`${siteConfig.name} - Inicio`}>
+  <a href="/" class="flex-1 flex items-center" aria-label={`${siteConfig.name} - Inicio`}>
     <img
       src="/images/logo/logox500.avif"
       alt={`Logo ${siteConfig.name}`}
@@ -27,8 +30,12 @@ const links = [
     />
   </a>
 
-  <nav class="hidden md:flex gap-4 font-semibold" aria-label="Principal">
-    {links.map((l) => <a class="menu-item" href={l.href}>{l.label}</a>)}
+  <nav class="hidden md:flex gap-6 font-semibold" aria-label="Principal">
+    {links.map((l) => (
+      <a class="menu-item" href={l.href} aria-current={isActive(l.href) ? "page" : undefined}>
+        {l.label}
+      </a>
+    ))}
   </nav>
 
   <button
@@ -44,17 +51,41 @@ const links = [
 
   <div
     id="mobile-menu"
-    class="fixed top-0 right-0 z-20 h-dvh md:hidden flex flex-col w-full items-center px-5 pt-20 bg-primary text-white transition-transform duration-200 translate-x-full"
+    class="metal-dark fixed top-0 right-0 z-20 h-dvh md:hidden flex flex-col w-full items-center px-5 pt-24 text-white transition-transform duration-200 translate-x-full"
     inert
   >
-    <nav class="flex flex-col gap-10 font-semibold text-center" aria-label="Principal móvil">
-      {links.map((l) => <a class="menu-item" href={l.href} data-menu-link>{l.label}</a>)}
+    <nav class="mobile-nav flex flex-col gap-10 font-semibold text-center" aria-label="Principal móvil">
+      {links.map((l) => (
+        <a class="menu-item" href={l.href} data-menu-link aria-current={isActive(l.href) ? "page" : undefined}>
+          {l.label}
+        </a>
+      ))}
     </nav>
     <button id="menu-close" type="button" class="absolute top-5 right-5" aria-label="Cerrar menú">
       <Icon name="closeX" size={35} />
     </button>
   </div>
-</div>
+</header>
+
+<style>
+  /* Entradas escalonadas al abrir el menú móvil */
+  @media (prefers-reduced-motion: no-preference) {
+    #mobile-menu:not([inert]) .mobile-nav > a {
+      animation: reveal-up 320ms var(--ease-firm) both;
+    }
+    @supports (animation-delay: calc(sibling-index() * 0.1s)) {
+      #mobile-menu:not([inert]) .mobile-nav > a {
+        animation-delay: calc(sibling-index() * 40ms);
+      }
+    }
+    @supports not (animation-delay: calc(sibling-index() * 0.1s)) {
+      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(2) { animation-delay: 40ms; }
+      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(3) { animation-delay: 80ms; }
+      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(4) { animation-delay: 120ms; }
+      #mobile-menu:not([inert]) .mobile-nav > a:nth-child(5) { animation-delay: 160ms; }
+    }
+  }
+</style>
 
 <script>
   const menu = document.getElementById("mobile-menu");
@@ -77,4 +108,15 @@ const links = [
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && menu && !menu.hasAttribute("inert")) setOpen(false);
   });
+
+  // Cierre con swipe hacia la derecha
+  let startX = 0;
+  menu?.addEventListener("touchstart", (e) => (startX = e.touches[0].clientX), { passive: true });
+  menu?.addEventListener(
+    "touchend",
+    (e) => {
+      if (e.changedTouches[0].clientX - startX > 80) setOpen(false);
+    },
+    { passive: true },
+  );
 </script>

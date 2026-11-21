@@ -1,10 +1,10 @@
 ---
-/** Lista de FAQ con <details> nativo + schema FAQPage generado de los mismos datos. */
+/** Acordeón de FAQ con <details> nativo + schema FAQPage generado de los mismos datos. */
 import type { FaqItem } from "../constants/faq";
+import Icon from "./ui/Icon.astro";
 
 interface Props {
   items: FaqItem[];
-  /** Si es false no emite el JSON-LD (para evitar dos FAQPage en una misma página). */
   schema?: boolean;
 }
 
@@ -23,12 +23,14 @@ const faqSchema = {
 
 <div class="flex flex-col gap-3">
   {items.map((f) => (
-    <details class="faq-item group bg-white rounded-2xl shadow-lg p-5">
-      <summary class="cursor-pointer list-none flex justify-between items-center gap-4 text-lg font-semibold text-primary">
+    <details class="faq-item group metal-brushed rounded-2xl">
+      <summary class="cursor-pointer flex items-center gap-4 p-5 text-lg font-semibold text-primary">
+        <span aria-hidden="true" class="metal-badge shrink-0 w-8 h-8 rounded-full grid place-items-center text-secondary-strong transition-transform duration-200 group-open:rotate-45">
+          <Icon name="closeX" size={14} class="rotate-45" />
+        </span>
         <span>{f.question}</span>
-        <span aria-hidden="true" class="shrink-0 text-secondary text-2xl leading-none transition-transform group-open:rotate-45">+</span>
       </summary>
-      <p class="text-tertiary mt-3">{f.answer}</p>
+      <p class="text-tertiary px-5 pb-5 pl-[4.25rem]">{f.answer}</p>
     </details>
   ))}
 </div>

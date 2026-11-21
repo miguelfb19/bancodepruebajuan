@@ -2,20 +2,23 @@
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Button from "../ui/Button.astro";
+import Card from "../ui/Card.astro";
+import Chip from "../ui/Chip.astro";
+import { readingTime, formatDate } from "../../lib/reading-time";
 
 interface Props {
   post: CollectionEntry<"blog">;
-  /** Variante oscura para la sección de la home (fondo primary). */
   eager?: boolean;
 }
 
 const { post, eager = false } = Astro.props;
 const href = `/blog/${post.id}`;
-const { title, description, image, imageAlt } = post.data;
+const { title, description, image, imageAlt, tags, pubDate } = post.data;
+const minutes = readingTime(post.body);
 ---
 
-<article class="metal-card rounded-2xl text-primary flex flex-col overflow-hidden shadow-lg hover:scale-[102%] hover:shadow-xl transition-all duration-300">
-  <a href={href} aria-label={`Leer: ${title}`}>
+<Card as="article" finish="polished" rivets interactive class="flex flex-col overflow-hidden">
+  <a href={href} aria-label={`Leer: ${title}`} tabindex="-1" class="relative block">
     <Image
       src={image}
       alt={imageAlt}
@@ -25,12 +28,20 @@ const { title, description, image, imageAlt } = post.data;
       format="avif"
       quality={60}
       loading={eager ? "eager" : "lazy"}
-      class="w-full h-48 object-cover"
+      class="w-full aspect-video object-cover"
     />
+    <div class="absolute left-3 bottom-3 flex flex-wrap gap-2">
+      {tags.slice(0, 2).map((t) => <Chip>{t}</Chip>)}
+    </div>
   </a>
-  <div class="flex flex-col gap-4 p-6 md:p-8 text-center flex-1 justify-between">
-    <h3 class="font-bold text-xl"><a href={href}>{title}</a></h3>
-    <p class="text-tertiary">{description}</p>
-    <Button href={href} class="self-center">Leer más</Button>
+  <div class="flex flex-col gap-3 p-6 flex-1">
+    <p class="text-xs text-tertiary flex gap-2 items-center">
+      <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+      <span aria-hidden="true">·</span>
+      <span>{minutes} min de lectura</span>
+    </p>
+    <h3 class="font-display text-3xl font-bold leading-none"><a href={href} class="hover:text-secondary-strong transition-colors">{title}</a></h3>
+    <p class="text-tertiary text-sm flex-1">{description}</p>
+    <Button href={href} size="sm" class="self-start">Leer más</Button>
   </div>
-</article>
+</Card>

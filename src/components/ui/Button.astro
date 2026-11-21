@@ -3,10 +3,12 @@ import type { HTMLAttributes } from "astro/types";
 import Icon from "./Icon.astro";
 import type { IconName } from "../../assets/icons";
 
-type Variant = "btn-1" | "btn-2" | "btn-3";
+type Variant = "btn-1" | "btn-2" | "btn-3" | "btn-ghost";
+type Size = "sm" | "md" | "lg";
 
 interface Props extends Omit<HTMLAttributes<"a">, "type">, Omit<HTMLAttributes<"button">, "type"> {
   variant?: Variant;
+  size?: Size;
   /** Si se pasa href se renderiza <a>; si no, <button>. */
   href?: string;
   type?: "button" | "submit" | "reset";
@@ -17,6 +19,7 @@ interface Props extends Omit<HTMLAttributes<"a">, "type">, Omit<HTMLAttributes<"
 
 const {
   variant = "btn-1",
+  size = "md",
   href,
   type = "button",
   icon,
@@ -26,7 +29,7 @@ const {
   ...rest
 } = Astro.props;
 
-const classes = [variant, className, "text-center flex gap-3 items-center justify-center"];
+const classes = [variant, size !== "md" && `btn-${size}`, "metal-sheen", className, "text-center flex gap-3 items-center justify-center"];
 const externalAttrs = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 ---
 

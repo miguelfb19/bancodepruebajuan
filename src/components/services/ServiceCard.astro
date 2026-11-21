@@ -2,22 +2,22 @@
 import { Image } from "astro:assets";
 import type { Service } from "../../interfaces/Service";
 import Button from "../ui/Button.astro";
+import Card from "../ui/Card.astro";
+import Icon from "../ui/Icon.astro";
 
 interface Props {
   service: Service;
-  /** Carga eager para tarjetas above the fold (p. ej. en /servicios). */
   eager?: boolean;
 }
 
 const { service, eager = false } = Astro.props;
-const { slug, name, text, picture } = service;
+const { slug, name, text, picture, whenNeeded } = service;
 const href = `/servicios/${slug}`;
+const [summary, note] = text.split("\n\n");
 ---
 
-<article
-  class="flex flex-col justify-between pb-5 gap-5 metal-card rounded-2xl text-primary shadow-lg shadow-tertiary hover:scale-[102%] hover:shadow-xl transition-all duration-300"
->
-  <a href={href} class="flex flex-col gap-3 overflow-hidden" aria-label={`Ver servicio de ${name}`}>
+<Card as="article" finish="polished" rivets interactive class="flex flex-col overflow-hidden shadow-tertiary">
+  <a href={href} class="relative block overflow-hidden" aria-label={`Ver servicio de ${name}`} tabindex="-1">
     <Image
       src={picture}
       alt={`Servicio de ${name} - Banco de Prueba Juan`}
@@ -27,10 +27,23 @@ const href = `/servicios/${slug}`;
       format="avif"
       quality={60}
       loading={eager ? "eager" : "lazy"}
-      class="w-full h-48 object-cover rounded-t-xl"
+      class="w-full h-52 object-cover [clip-path:polygon(0_0,100%_0,100%_calc(100%-1.25rem),calc(100%-1.25rem)_100%,0_100%)]"
     />
-    <h3 class="mx-3 text-center text-2xl font-semibold text-primary">{name}</h3>
-    <p class="mx-3 text-center whitespace-pre-line text-sm text-primary">{text}</p>
+    <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-primary/70 to-transparent"></span>
   </a>
-  <Button href={href} class="mx-3">Ver servicio</Button>
-</article>
+
+  <div class="flex flex-col gap-4 p-5 pt-3 flex-1">
+    <h3 class="font-display text-3xl font-bold text-primary leading-none">{name}</h3>
+    <p class="text-sm text-tertiary">{summary}</p>
+    <ul class="flex flex-col gap-2 text-sm text-primary">
+      {whenNeeded.slice(0, 2).map((w) => (
+        <li class="flex gap-2 items-start">
+          <Icon name="check" size={18} class="shrink-0 mt-0.5 text-secondary-strong" />
+          <span>{w}</span>
+        </li>
+      ))}
+    </ul>
+    {note && <p class="text-xs text-secondary-strong font-semibold">{note}</p>}
+    <Button href={href} class="mt-auto">Ver servicio</Button>
+  </div>
+</Card>

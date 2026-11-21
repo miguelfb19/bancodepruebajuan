@@ -1,0 +1,49 @@
+---
+/** Cifra grande con contador animado al entrar en pantalla (rAF, sin librerías). */
+interface Props {
+  value: number;
+  suffix?: string;
+  label: string;
+  class?: string;
+}
+const { value, suffix = "", label, class: className } = Astro.props;
+---
+
+<div class:list={["flex flex-col items-center text-center", className]}>
+  <p class="font-display tabular text-8xl md:text-9xl font-bold leading-none text-white text-shadow">
+    <span data-count={value}>{value}</span>{suffix}
+  </p>
+  <p class="font-display text-3xl md:text-5xl font-semibold text-white text-shadow mt-2">{label}</p>
+</div>
+
+<script>
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
+  if (!reduce && counters.length && "IntersectionObserver" in window) {
+    const run = (el: HTMLElement) => {
+      const target = Number(el.dataset.count);
+      const duration = 900;
+      const start = performance.now();
+      const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+      const tick = (now: number) => {
+        const p = Math.min(1, (now - start) / duration);
+        el.textContent = String(Math.round(ease(p) * target));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      el.textContent = "0";
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            run(e.target as HTMLElement);
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+    counters.forEach((c) => io.observe(c));
+  }
+</script>

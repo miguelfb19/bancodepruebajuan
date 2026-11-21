@@ -1,0 +1,83 @@
+---
+/**
+ * Chip "Abierto ahora / Cerrado" calculado en el cliente con los horarios de siteConfig.
+ * Sin JS muestra el horario de hoy como texto.
+ */
+import { siteConfig } from "../../config/site";
+
+interface Props {
+  tone?: "light" | "dark";
+  class?: string;
+}
+const { tone = "dark", class: className } = Astro.props;
+const hours = JSON.stringify(siteConfig.openingHours);
+---
+
+<span
+  class:list={[
+    "open-status inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold",
+    tone === "dark" ? "border border-white/30 bg-white/10 text-white backdrop-blur-sm" : "metal-brushed text-primary",
+    className,
+  ]}
+  data-hours={hours}
+  data-tz="America/Bogota"
+>
+  <span aria-hidden="true" class="open-status__dot w-2 h-2 rounded-full bg-steel-400"></span>
+  <span class="open-status__text">Lun–Vie 8:00–12:00 y 14:00–18:00 · Sáb 8:00–12:00</span>
+</span>
+
+<script>
+  type Slot = { days: readonly string[]; opens: string; closes: string };
+  const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const toMin = (hhmm: string) => {
+    const [h, m] = hhmm.split(":").map(Number);
+    return h * 60 + m;
+  };
+  const fmt = (hhmm: string) => {
+    const [h, m] = hhmm.split(":").map(Number);
+    const suffix = h < 12 ? "a.m." : "p.m.";
+    const h12 = h % 12 === 0 ? 12 : h % 12;
+    return `${h12}:${String(m).padStart(2, "0")} ${suffix}`;
+  };
+
+  document.querySelectorAll<HTMLElement>(".open-status").forEach((el) => {
+    const slots: Slot[] = JSON.parse(el.dataset.hours || "[]");
+    const tz = el.dataset.tz || "America/Bogota";
+    const now = new Date();
+    const parts = new Intl.DateTimeFormat("en-US", { timeZone: tz, weekday: "long", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(now);
+    const weekday = parts.find((p) => p.type === "weekday")?.value ?? "";
+    const hh = Number(parts.find((p) => p.type === "hour")?.value ?? 0) % 24;
+    const mm = Number(parts.find((p) => p.type === "minute")?.value ?? 0);
+    const nowMin = hh * 60 + mm;
+
+    const todaySlots = slots.filter((s) => s.days.includes(weekday)).sort((a, b) => toMin(a.opens) - toMin(b.opens));
+    const open = todaySlots.find((s) => nowMin >= toMin(s.opens) && nowMin < toMin(s.closes));
+    const dot = el.querySelector<HTMLElement>(".open-status__dot");
+    const text = el.querySelector<HTMLElement>(".open-status__text");
+    if (!dot || !text) return;
+
+    if (open) {
+      dot.className = "open-status__dot w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_2px_rgb(52_211_153/0.6)]";
+      text.textContent = `Abierto ahora · hasta las ${fmt(open.closes)}`;
+      return;
+    }
+    const next = todaySlots.find((s) => nowMin < toMin(s.opens));
+    if (next) {
+      dot.className = "open-status__dot w-2 h-2 rounded-full bg-amber-400";
+      text.textContent = `Cerrado · abrimos hoy a las ${fmt(next.opens)}`;
+      return;
+    }
+    // Buscar el próximo día con horario
+    const todayIdx = DAYS.indexOf(weekday);
+    for (let i = 1; i <= 7; i++) {
+      const d = DAYS[(todayIdx + i) % 7];
+      const s = slots.filter((x) => x.days.includes(d)).sort((a, b) => toMin(a.opens) - toMin(b.opens))[0];
+      if (s) {
+        const label = i === 1 ? "mañana" : `el ${["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"][(todayIdx + i) % 7]}`;
+        dot.className = "open-status__dot w-2 h-2 rounded-full bg-steel-400";
+        text.textContent = `Cerrado · abrimos ${label} a las ${fmt(s.opens)}`;
+        return;
+      }
+    }
+  });
+</script>

@@ -1,0 +1,24 @@
+---
+/** Encabezado de sección: etiqueta pequeña + título display + regla milimetrada. */
+interface Props {
+  eyebrow?: string;
+  title: string;
+  tone?: "light" | "dark" | "gradient";
+  align?: "center" | "left";
+  as?: "h1" | "h2";
+  class?: string;
+  id?: string;
+}
+const { eyebrow, title, tone = "gradient", align = "center", as: Tag = "h2", class: className, id } = Astro.props;
+const color = tone === "dark" ? "text-white text-shadow" : tone === "light" ? "text-primary" : "heading-gradient";
+---
+
+<div class:list={["flex flex-col gap-3", align === "center" ? "items-center text-center" : "items-start", className]}>
+  {eyebrow && (
+    <p class:list={["uppercase tracking-[0.3em] text-xs font-semibold", tone === "dark" ? "text-white/70" : "text-secondary-strong"]}>
+      {eyebrow}
+    </p>
+  )}
+  <Tag id={id} class:list={["font-display text-5xl md:text-6xl font-bold leading-none", color]}>{title}</Tag>
+  <span aria-hidden="true" class:list={["rule w-32", tone === "dark" ? "text-white" : "text-primary"]}></span>
+</div>

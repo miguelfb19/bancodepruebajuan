@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import SectionHeading from "../ui/SectionHeading.astro";
 
 const modules = import.meta.glob<{ default: ImageMetadata }>("../../assets/images/galery/*.avif", { eager: true });
 const images = Object.entries(modules)
@@ -7,8 +8,8 @@ const images = Object.entries(modules)
   .map(([, m]) => m.default);
 ---
 
-<section id="galery" class="scroll-reveal bg-primary max-md:py-10 md:p-20 flex flex-col gap-16">
-  <h2 class="text-white text-5xl md:text-6xl text-center font-bold text-shadow">Nuestro trabajo</h2>
+<section id="galery" class="cv-auto scroll-reveal metal-dark max-md:py-10 md:p-20 flex flex-col gap-12">
+  <SectionHeading eyebrow="Galería" title="Nuestro trabajo" tone="dark" />
 
   <div class="carousel" data-carousel aria-roledescription="carrusel" aria-label="Galería de trabajos realizados">
     <div class="carousel__track" data-carousel-track>

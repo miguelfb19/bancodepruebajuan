@@ -1,0 +1,30 @@
+---
+/**
+ * Superficie del design system. finish: polished (destacada) | brushed (estándar) | dark (sobre navy).
+ * rivets añade remaches en las esquinas; interactive la eleva al hover.
+ */
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {
+  finish?: "polished" | "brushed" | "dark";
+  rivets?: boolean;
+  interactive?: boolean;
+  as?: "div" | "article" | "section" | "aside" | "li";
+}
+
+const { finish = "brushed", rivets = false, interactive = false, as: Tag = "div", class: className, ...rest } = Astro.props;
+---
+
+<Tag
+  class:list={[
+    `metal-${finish}`,
+    "rounded-2xl",
+    finish === "dark" ? "text-white" : "text-primary",
+    rivets && "rivets",
+    interactive && "card-interactive",
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</Tag>

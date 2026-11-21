@@ -1,11 +1,12 @@
 ---
 import Button from "./ui/Button.astro";
+import SectionHeading from "./ui/SectionHeading.astro";
 import { whatsappUrl } from "../config/site";
 ---
 
-<section id="cta" class="scroll-reveal flex flex-col gap-20 py-20 px-10">
-  <h2 class="heading-gradient text-5xl md:text-6xl text-center font-bold">Llama y obtén asesoría inmediata</h2>
-  <Button href={whatsappUrl} external class="text-white text-2xl !py-8" icon="whatsapp" iconClass="w-12 h-12 md:w-7 md:h-7">
+<section id="cta" class="cv-auto scroll-reveal flex flex-col gap-12 py-20 px-10">
+  <SectionHeading eyebrow="Hablemos" title="Llama y obtén asesoría inmediata" />
+  <Button href={whatsappUrl} external size="lg" class="text-white text-2xl self-center" icon="whatsapp" iconClass="w-12 h-12 md:w-7 md:h-7">
     Contáctanos ahora
   </Button>
 </section>
