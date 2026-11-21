@@ -6,7 +6,7 @@ import SectionHeading from "../ui/SectionHeading.astro";
 ---
 
 <section id="services" class="cv-auto flex flex-col gap-14 p-10 md:p-16">
-  <SectionHeading eyebrow="Lo que hacemos" title="Nuestros servicios" />
+  <SectionHeading title="Nuestros servicios" />
   <div id="services-cards" class="stagger grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
     {services.map((service) => <ServiceCard service={service} />)}
   </div>

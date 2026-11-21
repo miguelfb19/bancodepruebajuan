@@ -1,0 +1,129 @@
+---
+/**
+ * Animación de marca: el carro del logo sobre un elevador de dos columnas.
+ * El trazo se dibuja al entrar en pantalla (scroll-driven) y el elevador
+ * sube y baja lentamente. Solo transform/opacity/stroke-dashoffset. Decorativo.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 320 200"
+  class:list={["car-lift", className]}
+  aria-hidden="true"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="3"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <!-- Columnas del elevador -->
+  <g class="car-lift__posts">
+    <rect x="18" y="34" width="12" height="156" rx="2" pathLength="1" />
+    <rect x="290" y="34" width="12" height="156" rx="2" pathLength="1" />
+    <path d="M8 190 H312" pathLength="1" />
+    <!-- marcas de medición en las columnas -->
+    <path d="M30 60 h6 M30 90 h6 M30 120 h6 M30 150 h6 M290 60 h-6 M290 90 h-6 M290 120 h-6 M290 150 h-6" pathLength="1" class="car-lift__ticks" />
+  </g>
+
+  <!-- Plataforma + carro (sube y baja) -->
+  <g class="car-lift__car">
+    <!-- brazos y plataforma -->
+    <path d="M30 150 H290" pathLength="1" />
+    <path d="M56 150 V144 H264 V150" pathLength="1" />
+    <!-- carrocería -->
+    <path
+      d="M48 128 H66 C76 104 100 94 130 92 H196 C222 94 246 108 262 126 H276 C280 126 282 129 282 133 V138 H40 V133 C40 129 43 128 48 128 Z"
+      pathLength="1"
+      class="car-lift__body"
+    />
+    <!-- ventanas -->
+    <path d="M104 120 L116 100 H154 V120 Z" pathLength="1" />
+    <path d="M166 120 V100 H198 C214 102 230 112 238 120 Z" pathLength="1" />
+    <!-- faros -->
+    <path d="M52 132 h10 M258 132 h12" pathLength="1" class="car-lift__accent" />
+    <!-- ruedas -->
+    <circle cx="90" cy="138" r="13" pathLength="1" />
+    <circle cx="90" cy="138" r="5" pathLength="1" />
+    <circle cx="232" cy="138" r="13" pathLength="1" />
+    <circle cx="232" cy="138" r="5" pathLength="1" />
+  </g>
+
+  <!-- Láser de medición bajo el carro -->
+  <path d="M30 170 H290" pathLength="1" class="car-lift__laser" stroke-width="2" />
+</svg>
+
+<style>
+  .car-lift {
+    overflow: visible; /* el color lo da el contexto (currentColor) */
+  }
+  .car-lift__accent,
+  .car-lift__laser {
+    stroke: var(--color-secondary);
+  }
+  .car-lift__ticks {
+    stroke-width: 2;
+    opacity: 0.6;
+  }
+
+  /* Trazo que se dibuja al entrar (progreso ligado al scroll; sin soporte queda dibujado) */
+  .car-lift path,
+  .car-lift rect,
+  .car-lift circle {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: 0% 100%)) {
+      .car-lift path,
+      .car-lift rect,
+      .car-lift circle {
+        animation: draw auto linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 90%;
+      }
+    }
+    /* El elevador sube y baja; el láser parpadea suavemente al medir */
+    .car-lift__car {
+      animation: lift 6s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    }
+    .car-lift__laser {
+      animation: laser 6s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    }
+  }
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes lift {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -14px;
+    }
+  }
+  @keyframes laser {
+    0%,
+    100% {
+      opacity: 0.25;
+      scale: 0.9 1;
+    }
+    50% {
+      opacity: 1;
+      scale: 1 1;
+    }
+  }
+  .car-lift__laser {
+    transform-origin: 50% 50%;
+    transform-box: fill-box;
+  }
+</style>

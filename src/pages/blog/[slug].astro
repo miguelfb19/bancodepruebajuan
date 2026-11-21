@@ -94,7 +94,7 @@ const articleSchema = {
           <div class="flex gap-4 items-start">
             <Icon name="diagnostic" size={36} class="shrink-0 text-secondary-strong" />
             <div>
-              <p class="uppercase tracking-[0.3em] text-xs font-semibold text-secondary-strong">Aplica a tu caso</p>
+              <p class="text-sm text-secondary-strong font-semibold">Aplica a tu caso</p>
               <p class="font-display font-semibold text-primary text-2xl leading-tight">{related.name}</p>
               <p class="text-sm text-tertiary mt-1">{related.text.split("\n\n")[0]}</p>
             </div>
@@ -121,7 +121,7 @@ const articleSchema = {
     {toc.length > 1 && (
       <aside class="hidden lg:block sticky top-28">
         <nav aria-labelledby="toc-title" class="metal-brushed rounded-2xl p-5">
-          <p id="toc-title" class="uppercase tracking-[0.3em] text-xs font-semibold text-secondary-strong mb-3">En este artículo</p>
+          <p id="toc-title" class="font-display text-xl text-primary mb-3">En este artículo</p>
           <ol class="flex flex-col gap-2 text-sm">
             {toc.map((h) => (
               <li><a href={`#${h.slug}`} class="toc-link text-primary hover:text-secondary-strong">{h.text}</a></li>

@@ -1,8 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import Button from "./ui/Button.astro";
-import Chip from "./ui/Chip.astro";
-import OpenStatus from "./ui/OpenStatus.astro";
 import { siteConfig } from "../config/site";
 import portada from "../assets/images/portada/portada.avif";
 ---
@@ -37,7 +35,6 @@ import portada from "../assets/images/portada/portada.avif";
 
   <div class="relative z-10 h-full flex flex-col justify-center gap-8 p-8 md:p-16 max-w-3xl">
     <div class="flex flex-col gap-5">
-      <OpenStatus class="self-start" />
       <h1 class="font-display text-5xl md:text-7xl font-bold text-white text-shadow leading-[0.95]">
         Especialistas en Enderezado de Chasis en Pereira
       </h1>
@@ -47,14 +44,8 @@ import portada from "../assets/images/portada/portada.avif";
     </div>
 
     <div class="flex max-sm:flex-col gap-4 w-full sm:max-w-md">
-      <Button href="/contact" class="w-full !shadow-white/60 !shadow-xl">Contáctanos</Button>
-      <Button href="/servicios" variant="btn-3" class="w-full !shadow-white/60 !shadow-xl">Nuestros servicios</Button>
+      <Button href="/contact" size="lg" class="w-full">Contáctanos</Button>
+      <Button href="/servicios" size="lg" variant="btn-3" class="w-full">Nuestros servicios</Button>
     </div>
-
-    <ul class="flex flex-wrap gap-2" aria-label="Razones para confiar">
-      <li><Chip tone="dark" icon="check">{siteConfig.yearsOfExperience} años de experiencia</Chip></li>
-      <li><Chip tone="dark" icon="shakeHands">Garantía en cada trabajo</Chip></li>
-      <li><Chip tone="dark" icon="diagnostic">Diagnóstico en 10–30 min</Chip></li>
-    </ul>
   </div>
 </header>

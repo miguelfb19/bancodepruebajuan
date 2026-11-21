@@ -2,16 +2,17 @@
 /** Cifra grande con contador animado al entrar en pantalla (rAF, sin librerías). */
 interface Props {
   value: number;
+  prefix?: string;
   suffix?: string;
   label: string;
   class?: string;
 }
-const { value, suffix = "", label, class: className } = Astro.props;
+const { value, prefix = "", suffix = "", label, class: className } = Astro.props;
 ---
 
 <div class:list={["flex flex-col items-center text-center", className]}>
   <p class="font-display tabular text-8xl md:text-9xl font-bold leading-none text-white text-shadow">
-    <span data-count={value}>{value}</span>{suffix}
+    {prefix}<span data-count={value}>{value}</span>{suffix}
   </p>
   <p class="font-display text-3xl md:text-5xl font-semibold text-white text-shadow mt-2">{label}</p>
 </div>

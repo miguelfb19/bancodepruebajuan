@@ -1,10 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
+import CarLift from "../components/ui/CarLift.astro";
 ---
 
 <Layout title="Página no encontrada | Banco de Prueba Juan" description="La página que buscas no existe." noindex>
   <section class="min-h-[60dvh] flex flex-col items-center justify-center gap-6 text-center px-10">
+    <CarLift class="w-72 text-primary" />
     <p class="heading-gradient font-display text-9xl font-bold leading-none">404</p>
     <h1 class="text-3xl font-bold text-primary">Esta página no existe</h1>
     <p class="text-tertiary max-w-md">Puede que el enlace esté roto o que la página se haya movido.</p>

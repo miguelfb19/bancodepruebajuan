@@ -1,6 +1,7 @@
 ---
 import Badge from "./ui/Badge.astro";
 import Stat from "./ui/Stat.astro";
+import CarLift from "./ui/CarLift.astro";
 import { siteConfig } from "../config/site";
 
 const pillars = [
@@ -14,7 +15,10 @@ const pillars = [
   <!-- Veta roja de marca -->
   <div aria-hidden="true" class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-secondary/25 blur-3xl"></div>
 
-  <Stat value={siteConfig.yearsOfExperience} label="años de experiencia" />
+  <div class="grid md:grid-cols-2 gap-10 items-center max-w-5xl mx-auto w-full">
+    <CarLift class="w-full max-w-md mx-auto text-white" />
+    <Stat value={siteConfig.yearsOfExperience} prefix="+" label="años de experiencia" />
+  </div>
 
   <ul class="stagger grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto w-full">
     {pillars.map((p) => (
