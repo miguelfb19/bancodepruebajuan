@@ -9,7 +9,7 @@ interface Props extends HTMLAttributes<"div"> {
   finish?: "polished" | "brushed" | "dark";
   rivets?: boolean;
   interactive?: boolean;
-  as?: "div" | "article" | "section" | "aside" | "li";
+  as?: "div" | "article" | "section" | "aside" | "li" | "fieldset";
 }
 
 const { finish = "brushed", rivets = false, interactive = false, as: Tag = "div", class: className, ...rest } = Astro.props;

@@ -24,6 +24,7 @@
 - [Servicios](https://www.bancodepruebajuan.com/servicios)
 - [Sobre nosotros](https://www.bancodepruebajuan.com/about): historia, misión, visión y valores
 - [Contacto](https://www.bancodepruebajuan.com/contact): canales de contacto, mapa y horarios
+- [Pre-diagnóstico](https://www.bancodepruebajuan.com/diagnostico): asistente de 3 preguntas que indica el servicio recomendado según los síntomas
 - [Blog](https://www.bancodepruebajuan.com/blog)
   - [¿Para qué sirve la alineación?](https://www.bancodepruebajuan.com/blog/para-que-sirve-la-alineacion)
   - [¿Para qué sirve el peritaje vehicular?](https://www.bancodepruebajuan.com/blog/para-que-sirve-el-peritaje-vehicular)

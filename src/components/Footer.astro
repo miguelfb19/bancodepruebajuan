@@ -42,6 +42,7 @@ const year = new Date().getFullYear();
         <h3 class="font-display font-bold text-2xl">Servicios</h3>
         {services.map((s) => <a href={`/servicios/${s.slug}`} class="underline hover:text-secondary">{s.name}</a>)}
         <h3 class="font-display font-bold text-2xl mt-2">Más</h3>
+        <a href="/diagnostico" class="underline hover:text-secondary">Pre-diagnóstico</a>
         <a href="/blog" class="underline hover:text-secondary">Blog</a>
         <a href="/about" class="underline hover:text-secondary">Sobre nosotros</a>
         <a href="/contact" class="underline hover:text-secondary">Contáctanos</a>

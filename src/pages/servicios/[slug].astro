@@ -70,6 +70,7 @@ const whatsappText = encodeURIComponent(`Hola, quiero una cotización de ${name.
         <p class="font-display font-semibold text-primary text-2xl leading-tight">¿Tu carro presenta estos síntomas?</p>
         <p class="text-sm text-tertiary">Escríbenos con la marca, el modelo y qué le pasa. La cotización y el diagnóstico toman entre 10 y 30 minutos.</p>
         <Button href={`${whatsappUrl}?text=${whatsappText}`} external icon="whatsapp" iconClass="w-6 h-6">Cotizar por WhatsApp</Button>
+        <a href="/diagnostico" class="text-sm text-primary underline text-center hover:text-secondary-strong">¿No estás seguro? Haz el pre-diagnóstico</a>
         <p class="text-xs text-tertiary text-center">{siteConfig.address.street}, {siteConfig.address.city}</p>
       </Card>
     </section>

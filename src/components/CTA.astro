@@ -6,7 +6,8 @@ import { whatsappUrl } from "../config/site";
 
 <section id="cta" class="cv-auto scroll-reveal flex flex-col gap-12 py-20 px-10">
   <SectionHeading title="Llama y obtén asesoría inmediata" />
-  <Button href={whatsappUrl} external size="lg" class="text-white text-2xl self-center" icon="whatsapp" iconClass="w-12 h-12 md:w-7 md:h-7">
-    Contáctanos ahora
-  </Button>
+  <div class="flex flex-wrap gap-4 justify-center items-center">
+    <Button href={whatsappUrl} external size="lg" icon="whatsapp" iconClass="w-7 h-7">Contáctanos ahora</Button>
+    <Button href="/diagnostico" size="lg" variant="btn-2">¿No sabes qué necesitas? Haz el pre-diagnóstico</Button>
+  </div>
 </section>

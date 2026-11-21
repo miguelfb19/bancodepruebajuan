@@ -1,0 +1,290 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Button from "../components/ui/Button.astro";
+import Card from "../components/ui/Card.astro";
+import Icon from "../components/ui/Icon.astro";
+import SectionHeading from "../components/ui/SectionHeading.astro";
+import CarLift from "../components/ui/CarLift.astro";
+import { symptoms, history, reasons, servicePriority } from "../constants/diagnostico";
+import { services } from "../constants/services";
+import { siteConfig, whatsappUrl, absoluteUrl } from "../config/site";
+
+const title = "Pre-diagnóstico en 3 preguntas: ¿qué necesita tu carro? | Banco de Prueba Juan";
+const description =
+  "Responde 3 preguntas sobre lo que le pasa a tu carro y te decimos si necesita banco de prueba, enderezado de chasis o soldadura estructural. Termina con tu mensaje listo para WhatsApp.";
+
+const serviceData = Object.fromEntries(
+  services.map((s) => [s.slug, { name: s.name, duration: s.duration, url: `/servicios/${s.slug}`, reason: reasons[s.slug as keyof typeof reasons] }]),
+);
+
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": absoluteUrl("/diagnostico"),
+  name: "Pre-diagnóstico de chasis",
+  description,
+  isPartOf: { "@id": `${siteConfig.url}/#website` },
+  about: { "@id": `${siteConfig.url}/#business` },
+};
+---
+
+<Layout title={title} description={description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
+
+  <Breadcrumbs items={[{ name: "Pre-diagnóstico", url: "/diagnostico" }]} />
+
+  <section class="px-6 md:px-16 pb-20 max-w-5xl mx-auto flex flex-col gap-10">
+    <div class="grid md:grid-cols-[1fr_18rem] gap-8 items-center">
+      <SectionHeading as="h1" align="left" title="¿Qué necesita tu carro?" />
+      <CarLift class="w-full text-primary max-md:hidden" />
+    </div>
+    <p class="text-lg text-tertiary max-w-2xl -mt-4">
+      Tres preguntas, un minuto. Al final sabrás qué servicio corresponde y tendrás el mensaje listo para
+      escribirnos por WhatsApp con todo el contexto.
+    </p>
+
+    <form id="diag" class="flex flex-col gap-8" novalidate>
+      <!-- Progreso -->
+      <ol class="diag-steps grid grid-cols-3 gap-2" aria-label="Progreso">
+        {["Síntomas", "Antecedentes", "Resultado"].map((s, i) => (
+          <li class="diag-step flex flex-col gap-2 text-sm font-semibold text-steel-600" data-step-indicator={i + 1} aria-current={i === 0 ? "step" : undefined}>
+            <span class="h-1.5 rounded-full bg-steel-200 overflow-hidden"><span class="diag-step__bar block h-full w-0 bg-secondary"></span></span>
+            <span class="font-display text-lg">{i + 1}. {s}</span>
+          </li>
+        ))}
+      </ol>
+
+      <!-- Paso 1 -->
+      <Card as="fieldset" finish="polished" rivets class="diag-panel p-6 pt-8 md:p-10" data-step="1">
+        <legend class="sr-only">Síntomas</legend>
+        <h2 class="font-display text-4xl text-primary mb-2">¿Qué le pasa al carro?</h2>
+        <p class="text-tertiary mb-6">Marca todo lo que aplique.</p>
+        <div class="grid sm:grid-cols-2 gap-3">
+          {symptoms.map((s) => (
+            <label class="diag-option">
+              <input type="checkbox" name="symptom" value={s.id} data-message={s.message} data-service={s.service} class="sr-only" />
+              <span class="diag-option__box" aria-hidden="true"><Icon name="check" size={16} /></span>
+              <span>{s.label}</span>
+            </label>
+          ))}
+        </div>
+        <p class="diag-error text-secondary-strong text-sm mt-4" hidden>Marca al menos un síntoma para continuar.</p>
+        <div class="flex justify-end mt-8">
+          <Button type="button" data-next>Siguiente</Button>
+        </div>
+      </Card>
+
+      <!-- Paso 2 -->
+      <Card as="fieldset" finish="polished" rivets class="diag-panel p-6 pt-8 md:p-10" data-step="2" hidden>
+        <legend class="sr-only">Antecedentes</legend>
+        <h2 class="font-display text-4xl text-primary mb-2">¿Qué has hecho hasta ahora?</h2>
+        <p class="text-tertiary mb-6">Elige la opción que mejor describa tu caso.</p>
+        <div class="grid sm:grid-cols-2 gap-3">
+          {history.map((h, i) => (
+            <label class="diag-option">
+              <input type="radio" name="history" value={h.id} data-message={h.message} class="sr-only" checked={i === 2} />
+              <span class="diag-option__box diag-option__box--radio" aria-hidden="true"></span>
+              <span>{h.label}</span>
+            </label>
+          ))}
+        </div>
+        <div class="flex justify-between mt-8">
+          <Button type="button" variant="btn-2" data-prev>Atrás</Button>
+          <Button type="button" data-next>Ver resultado</Button>
+        </div>
+      </Card>
+
+      <!-- Paso 3 -->
+      <div class="diag-panel flex flex-col gap-6" data-step="3" hidden aria-live="polite">
+        <Card finish="dark" rivets class="p-6 pt-8 md:p-10 flex flex-col gap-5">
+          <p class="text-white/70">Lo que describes corresponde a</p>
+          <h2 class="font-display text-5xl md:text-6xl leading-none" data-result-name>—</h2>
+          <p class="text-white/90 text-lg" data-result-reason></p>
+          <p class="text-white/70 text-sm"><strong class="text-white">Tiempo estimado:</strong> <span data-result-duration></span></p>
+        </Card>
+
+        <Card finish="polished" class="p-6 md:p-8 flex flex-col gap-4">
+          <h3 class="font-display text-3xl text-primary">Tu mensaje para WhatsApp</h3>
+          <p class="text-tertiary text-sm">Lo armamos con tus respuestas. Puedes editarlo antes de enviarlo.</p>
+          <textarea
+            data-result-message
+            rows="4"
+            class="w-full rounded-xl border border-steel-300 bg-white p-4 text-primary focus:border-primary"
+            aria-label="Mensaje para WhatsApp"
+          ></textarea>
+          <div class="flex flex-wrap gap-3">
+            <Button href={whatsappUrl} external size="lg" variant="btn-3" icon="whatsapp" iconClass="w-6 h-6" data-result-wa>Enviar por WhatsApp</Button>
+            <Button href="#" variant="btn-2" data-result-link>Ver el servicio</Button>
+            <Button type="button" variant="btn-ghost" class="!text-primary !border-steel-300" data-restart>Empezar de nuevo</Button>
+          </div>
+        </Card>
+      </div>
+    </form>
+
+    <!-- Sin JS: acceso directo a los servicios -->
+    <noscript>
+      <p class="text-tertiary">
+        Este asistente necesita JavaScript. Puedes ver directamente nuestros
+        <a href="/servicios" class="underline">servicios</a> o escribirnos por
+        <a href={whatsappUrl} class="underline">WhatsApp</a>.
+      </p>
+    </noscript>
+  </section>
+</Layout>
+
+<style>
+  .diag-option {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.9rem 1rem;
+    border-radius: 0.9rem;
+    border-left: 4px solid transparent;
+    background-color: var(--color-steel-50);
+    color: var(--color-primary);
+    cursor: pointer;
+    transition:
+      background-color var(--dur-micro) var(--ease-firm),
+      border-color var(--dur-micro) var(--ease-firm),
+      box-shadow var(--dur-micro) var(--ease-firm);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .diag-option:hover {
+      background-color: #fff;
+      box-shadow: var(--shadow-1);
+    }
+  }
+  .diag-option:has(input:checked) {
+    background-color: #fff;
+    border-left-color: var(--color-secondary);
+    box-shadow:
+      inset 0 0 0 1px var(--color-primary),
+      var(--shadow-1);
+  }
+  .diag-option:has(input:focus-visible) {
+    outline: 2px solid var(--color-secondary-strong);
+    outline-offset: 2px;
+  }
+  .diag-option__box {
+    flex-shrink: 0;
+    width: 1.35rem;
+    height: 1.35rem;
+    margin-top: 0.1rem;
+    border-radius: 0.35rem;
+    border: 1.5px solid var(--color-steel-400);
+    background: #fff;
+    display: grid;
+    place-items: center;
+    color: transparent;
+    transition:
+      background-color var(--dur-micro) var(--ease-firm),
+      color var(--dur-micro) var(--ease-firm);
+  }
+  .diag-option__box--radio {
+    border-radius: 9999px;
+  }
+  .diag-option:has(input:checked) .diag-option__box {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+  .diag-option:has(input:checked) .diag-option__box--radio {
+    box-shadow: inset 0 0 0 4px #fff;
+  }
+
+  .diag-step[aria-current="step"],
+  .diag-step[data-done] {
+    color: var(--color-primary);
+  }
+  .diag-step__bar {
+    transition: width 300ms var(--ease-firm);
+  }
+  .diag-step[aria-current="step"] .diag-step__bar,
+  .diag-step[data-done] .diag-step__bar {
+    width: 100%;
+  }
+
+  /* Entrada de cada panel */
+  @media (prefers-reduced-motion: no-preference) {
+    .diag-panel:not([hidden]) {
+      animation: reveal-up 260ms cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+  }
+</style>
+
+<script define:vars={{ serviceData, servicePriority, whatsappBase: whatsappUrl }}>
+  const form = document.getElementById("diag");
+  if (form) {
+    const panels = [...form.querySelectorAll("[data-step]")];
+    const indicators = [...form.querySelectorAll("[data-step-indicator]")];
+    const error = form.querySelector(".diag-error");
+    let step = 1;
+
+    const show = (n) => {
+      step = n;
+      panels.forEach((p) => (p.hidden = Number(p.dataset.step) !== n));
+      indicators.forEach((el) => {
+        const i = Number(el.dataset.stepIndicator);
+        el.toggleAttribute("data-done", i < n);
+        if (i === n) el.setAttribute("aria-current", "step");
+        else el.removeAttribute("aria-current");
+      });
+      const panel = panels.find((p) => Number(p.dataset.step) === n);
+      panel?.querySelector("h2")?.setAttribute("tabindex", "-1");
+      panel?.querySelector("h2")?.focus({ preventScroll: true });
+      panel?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    const selectedSymptoms = () => [...form.querySelectorAll('input[name="symptom"]:checked')];
+    const selectedHistory = () => form.querySelector('input[name="history"]:checked');
+
+    const resolve = () => {
+      const picked = selectedSymptoms();
+      const services = picked.map((i) => i.dataset.service);
+      const slug = servicePriority.find((s) => services.includes(s)) || "banco-de-prueba";
+      const svc = serviceData[slug];
+      const hist = selectedHistory();
+
+      const parts = picked.map((i) => i.dataset.message);
+      const symptomsText = parts.length > 1 ? parts.slice(0, -1).join(", ") + " y " + parts.at(-1) : parts[0] || "";
+      const message = `Hola, mi carro ${symptomsText}. ${hist ? hist.dataset.message[0].toUpperCase() + hist.dataset.message.slice(1) + "." : ""} Quisiera cotizar ${svc.name.toLowerCase()}.`.replace(/\s+/g, " ").trim();
+
+      form.querySelector("[data-result-name]").textContent = svc.name;
+      form.querySelector("[data-result-reason]").textContent = svc.reason;
+      form.querySelector("[data-result-duration]").textContent = svc.duration;
+      form.querySelector("[data-result-link]").setAttribute("href", svc.url);
+      const ta = form.querySelector("[data-result-message]");
+      ta.value = message;
+      const wa = form.querySelector("[data-result-wa]");
+      const sync = () => wa.setAttribute("href", `${whatsappBase}?text=${encodeURIComponent(ta.value)}`);
+      sync();
+      ta.addEventListener("input", sync);
+    };
+
+    form.querySelectorAll("[data-next]").forEach((btn) =>
+      btn.addEventListener("click", () => {
+        if (step === 1) {
+          if (selectedSymptoms().length === 0) {
+            error.hidden = false;
+            return;
+          }
+          error.hidden = true;
+          show(2);
+        } else if (step === 2) {
+          resolve();
+          show(3);
+        }
+      }),
+    );
+    form.querySelectorAll("[data-prev]").forEach((btn) => btn.addEventListener("click", () => show(step - 1)));
+    form.querySelector("[data-restart]")?.addEventListener("click", () => {
+      form.reset();
+      show(1);
+    });
+    form.addEventListener("submit", (e) => e.preventDefault());
+    form.addEventListener("change", () => {
+      if (selectedSymptoms().length) error.hidden = true;
+    });
+  }
+</script>
