@@ -1,0 +1,14 @@
+---
+import Icon from "./Icon.astro";
+import { whatsappUrl, siteConfig } from "../../config/site";
+---
+
+<a
+  href={`${whatsappUrl}?text=${encodeURIComponent("Hola, quiero una cotización.")}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`Escribir por WhatsApp a ${siteConfig.name}`}
+  class="whatsapp-fab fixed bottom-10 left-6 md:left-10 z-50 grid place-items-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg hover:scale-105 transition-transform"
+>
+  <Icon name="whatsapp" size={30} />
+</a>

@@ -1,11 +1,17 @@
 ---
-import { articles } from "../../constants/articles";
+import { getCollection } from "astro:content";
 import BlogCard from "./BlogCard.astro";
+import Button from "../ui/Button.astro";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 4);
 ---
 
-<section id="blog" class="scroll-reveal bg-primary p-10 md:p-20 flex flex-col gap-5 md:gap-20">
+<section id="blog" class="scroll-reveal bg-primary p-10 md:p-20 flex flex-col gap-10 md:gap-16">
   <h2 class="text-white text-5xl md:text-6xl text-center font-bold text-shadow">Temas de interés</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-    {articles.map((article) => <BlogCard article={article} />)}
+    {posts.map((post) => <BlogCard post={post} />)}
   </div>
+  <Button href="/blog" variant="btn-3" class="self-center">Ver todos los artículos</Button>
 </section>

@@ -2,22 +2,22 @@
 import { Image } from "astro:assets";
 import type { Service } from "../../interfaces/Service";
 import Button from "../ui/Button.astro";
-import Modal from "../ui/Modal.astro";
 
 interface Props {
   service: Service;
+  /** Carga eager para tarjetas above the fold (p. ej. en /servicios). */
+  eager?: boolean;
 }
 
-const { service } = Astro.props;
-const { slug, name, text, content, picture } = service;
-const dialogId = `service-${slug}`;
-const titleId = `${dialogId}-title`;
+const { service, eager = false } = Astro.props;
+const { slug, name, text, picture } = service;
+const href = `/servicios/${slug}`;
 ---
 
 <article
-  class="flex flex-col justify-between pb-5 gap-5 rounded-2xl bg-gradient-to-bl from-30% from-slate-200 via-70% via-white to-tertiary/40 text-primary shadow-lg shadow-tertiary hover:scale-[102%] hover:shadow-xl transition-all duration-300"
+  class="flex flex-col justify-between pb-5 gap-5 metal-card rounded-2xl text-primary shadow-lg shadow-tertiary hover:scale-[102%] hover:shadow-xl transition-all duration-300"
 >
-  <div class="flex flex-col gap-3 overflow-hidden">
+  <a href={href} class="flex flex-col gap-3 overflow-hidden" aria-label={`Ver servicio de ${name}`}>
     <Image
       src={picture}
       alt={`Servicio de ${name} - Banco de Prueba Juan`}
@@ -26,30 +26,11 @@ const titleId = `${dialogId}-title`;
       sizes="(min-width: 768px) 33vw, 100vw"
       format="avif"
       quality={60}
-      loading="lazy"
+      loading={eager ? "eager" : "lazy"}
       class="w-full h-48 object-cover rounded-t-xl"
     />
     <h3 class="mx-3 text-center text-2xl font-semibold text-primary">{name}</h3>
     <p class="mx-3 text-center whitespace-pre-line text-sm text-primary">{text}</p>
-  </div>
-  <Button class="mx-3" data-open-dialog={dialogId} aria-haspopup="dialog">Detalles</Button>
+  </a>
+  <Button href={href} class="mx-3">Ver servicio</Button>
 </article>
-
-<Modal id={dialogId} labelledBy={titleId}>
-  <h3 id={titleId} class="font-bold text-2xl mb-5 text-center">{name}</h3>
-  <Image
-    src={picture}
-    alt={`Servicio de ${name} - Banco de Prueba Juan`}
-    width={1280}
-    widths={[640, 960, 1280]}
-    sizes="(min-width: 1024px) 50rem, 90vw"
-    format="avif"
-    quality={60}
-    loading="lazy"
-    class="w-full h-64 md:h-96 object-cover rounded-xl mb-5"
-  />
-  <div class="flex flex-col gap-10">
-    <p>{content}</p>
-    <Button variant="btn-2" class="self-center" data-close-dialog>Cerrar</Button>
-  </div>
-</Modal>

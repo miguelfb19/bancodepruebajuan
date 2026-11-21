@@ -3,6 +3,7 @@ import { getImage } from "astro:assets";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import ScrollToTop from "../components/ui/ScrollToTop.astro";
+import WhatsAppFab from "../components/ui/WhatsAppFab.astro";
 import { siteConfig, absoluteUrl, whatsappUrl, GOOGLE_SITE_VERIFICATION } from "../config/site";
 import { services } from "../constants/services";
 import portada from "../assets/images/portada/portada.avif";
@@ -164,6 +165,7 @@ const webSiteSchema = {
     <main>
       <slot />
     </main>
+    <WhatsAppFab />
     <ScrollToTop />
     <Footer />
   </body>

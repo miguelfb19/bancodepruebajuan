@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import ServiceCard from "../../components/services/ServiceCard.astro";
+import CTA from "../../components/CTA.astro";
+import { services } from "../../constants/services";
+import { siteConfig, absoluteUrl } from "../../config/site";
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Servicios de Banco de Prueba Juan",
+  itemListElement: services.map((s, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: s.name,
+    url: absoluteUrl(`/servicios/${s.slug}`),
+  })),
+};
+---
+
+<Layout
+  title="Servicios: Banco de Prueba, Enderezado de Chasis y Soldadura Estructural en Pereira"
+  description={`Servicios de ${siteConfig.name} en Pereira: banco de prueba para chasis, enderezado de chasis y soldadura estructural para vehículos livianos. ${siteConfig.yearsOfExperience} años de experiencia y garantía en cada trabajo.`}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+
+  <PageHeader title="Nuestros servicios" />
+  <Breadcrumbs items={[{ name: "Servicios", url: "/servicios" }]} />
+
+  <section class="px-10 md:px-16 pb-20 flex flex-col gap-10">
+    <p class="max-w-3xl mx-auto text-center text-lg text-tertiary">
+      Nos especializamos en la estructura del vehículo: medimos, corregimos y reforzamos el chasis para que
+      la alineación funcione, el peritaje se apruebe y el carro vuelva a ser seguro. Atendemos vehículos
+      livianos en Pereira y el Eje Cafetero.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+      {services.map((service, i) => <ServiceCard service={service} eager={i === 0} />)}
+    </div>
+  </section>
+
+  <CTA />
+</Layout>

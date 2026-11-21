@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import BlogCard from "../../components/blog/BlogCard.astro";
+import CTA from "../../components/CTA.astro";
+import { absoluteUrl } from "../../config/site";
+
+const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": absoluteUrl("/blog#blog"),
+  name: "Blog de Banco de Prueba Juan",
+  url: absoluteUrl("/blog"),
+  inLanguage: "es-CO",
+  blogPost: posts.map((p) => ({
+    "@type": "BlogPosting",
+    headline: p.data.title,
+    url: absoluteUrl(`/blog/${p.id}`),
+    datePublished: p.data.pubDate.toISOString(),
+  })),
+};
+---
+
+<Layout
+  title="Blog: alineación, chasis, llantas y peritaje | Banco de Prueba Juan"
+  description="Guías claras sobre alineación, desgaste de llantas, peritaje vehicular y chasis, escritas desde la experiencia de un taller especializado en estructura automotriz en Pereira."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(blogSchema)} />
+
+  <PageHeader title="Temas de interés" />
+  <Breadcrumbs items={[{ name: "Blog", url: "/blog" }]} />
+
+  <section class="px-10 md:px-16 pb-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+      {posts.map((post) => <BlogCard post={post} />)}
+    </div>
+  </section>
+
+  <CTA />
+</Layout>

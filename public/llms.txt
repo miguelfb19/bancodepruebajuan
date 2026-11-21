@@ -4,9 +4,9 @@
 
 ## Servicios
 
-- Banco de prueba: diagnóstico y restauración de ángulos y medidas del chasis para garantizar la alineación correcta de las ruedas. No realizamos alineación, pero la garantizamos tras el trabajo.
-- Enderezado de chasis: rectificación de medidas y estética del chasis por desfases detectados en peritaje, colisiones o fallas mecánicas. No realizamos peritajes, solo reparamos las fallas.
-- Soldadura estructural: reparación de grietas, desgarres y desgastes en partes estructurales del vehículo.
+- [Banco de prueba](https://www.bancodepruebajuan.com/servicios/banco-de-prueba): diagnóstico de medidas del chasis y restauración de ángulos y puntos de anclaje de suspensión para que la alineación funcione y dure. No realizamos alineación, pero la garantizamos tras el trabajo. Duración típica: 1 a 4 horas.
+- [Enderezado de chasis](https://www.bancodepruebajuan.com/servicios/enderezado-de-chasis): rectificación de medidas y estética del chasis por colisiones, desfases detectados en peritaje o fallas estructurales. No realizamos peritajes, solo reparamos las fallas. Reparaciones mayores: 1 a 5 días.
+- [Soldadura estructural](https://www.bancodepruebajuan.com/servicios/soldadura-estructural): reparación de grietas, desgarres y corrosión en zonas estructurales con técnicas adecuadas a cada material y protección anticorrosiva.
 
 ## Datos de contacto
 
@@ -15,17 +15,26 @@
 - Teléfono fijo: 606 330 2804
 - Email: bancodepruebajuan@gmail.com
 - Horario: lunes a viernes 8:00-12:00 y 14:00-18:00; sábados 8:00-12:00; domingos cerrado
-- Área de servicio: Pereira, Dosquebradas, Santa Rosa de Cabal, La Virginia, Cartago y el eje cafetero
+- Área de servicio: Pereira, Dosquebradas, Santa Rosa de Cabal, La Virginia, Cartago y el Eje Cafetero
+- Vehículos atendidos: livianos (automóviles, camionetas y camperos)
 
 ## Páginas
 
-- [Inicio](https://www.bancodepruebajuan.com/): servicios, galería de trabajos, opiniones de clientes y preguntas frecuentes
+- [Inicio](https://www.bancodepruebajuan.com/)
+- [Servicios](https://www.bancodepruebajuan.com/servicios)
 - [Sobre nosotros](https://www.bancodepruebajuan.com/about): historia, misión, visión y valores
 - [Contacto](https://www.bancodepruebajuan.com/contact): canales de contacto, mapa y horarios
+- [Blog](https://www.bancodepruebajuan.com/blog)
+  - [¿Para qué sirve la alineación?](https://www.bancodepruebajuan.com/blog/para-que-sirve-la-alineacion)
+  - [¿Para qué sirve el peritaje vehicular?](https://www.bancodepruebajuan.com/blog/para-que-sirve-el-peritaje-vehicular)
+  - [¿Por qué se desgastan mal las llantas?](https://www.bancodepruebajuan.com/blog/por-que-se-desgastan-mal-las-llantas)
+  - [Cómo elegir dónde alinear tu carro en Pereira](https://www.bancodepruebajuan.com/blog/como-elegir-taller-alineacion-pereira)
 
 ## Preguntas frecuentes
 
 - ¿Qué es el enderezado de chasis? Proceso técnico que corrige deformaciones estructurales causadas por accidentes, golpes o desgaste, restaurando las medidas originales del fabricante.
-- ¿Cuándo lo necesito? Desgaste irregular de llantas, problemas de alineación recurrentes, vibración en el volante o tras un accidente que afecte la estructura.
+- ¿Diferencia entre banco de prueba y alineación? La alineación ajusta ángulos de las ruedas; el banco de prueba mide y corrige la estructura del chasis. Si el chasis está fuera de medida, la alineación no se sostiene.
+- ¿Hacen peritajes? No; reparan las fallas que el peritaje detecta.
 - ¿Cuánto demora? Cotización y diagnóstico: 10 a 30 minutos. Banco de prueba: 1 a 4 horas. Reparaciones mayores: 1 a 5 días.
 - ¿Tiene garantía? Sí, garantía completa en todos los trabajos realizados.
+- ¿Necesito cita? Se recomienda agendar por WhatsApp.

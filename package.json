@@ -10,8 +10,13 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.1",
+    "@fontsource-variable/manrope": "^5.3.0",
     "@tailwindcss/vite": "^4.1.10",
     "astro": "^5.10.0",
     "tailwindcss": "^4.1.10"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^5.9.3"
   }
 }

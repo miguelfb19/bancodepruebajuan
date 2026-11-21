@@ -1,32 +1,11 @@
 ---
 import { faqs } from "../constants/faq";
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({
-    "@type": "Question",
-    name: f.question,
-    acceptedAnswer: { "@type": "Answer", text: f.answer },
-  })),
-};
+import FaqList from "./FaqList.astro";
 ---
 
 <section id="faq" class="py-20 px-10 bg-gradient-to-br from-slate-100 to-white">
   <div class="max-w-4xl mx-auto">
-    <h2 class="text-4xl font-bold text-center text-primary mb-16">
-      Preguntas frecuentes
-    </h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-      {faqs.map((f) => (
-        <div class="bg-white rounded-2xl shadow-lg p-6">
-          <h3 class="text-xl font-semibold text-primary mb-3">{f.question}</h3>
-          <p class="text-tertiary">{f.answer}</p>
-        </div>
-      ))}
-    </div>
+    <h2 class="text-4xl font-bold text-center text-primary mb-16">Preguntas frecuentes</h2>
+    <FaqList items={faqs} />
   </div>
 </section>
-
-<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

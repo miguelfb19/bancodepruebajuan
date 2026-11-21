@@ -1,0 +1,100 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image, getImage } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Button from "../../components/ui/Button.astro";
+import { siteConfig, absoluteUrl, whatsappUrl } from "../../config/site";
+
+export const getStaticPaths = async () => {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+};
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, image, imageAlt, source, sourceName, tags } = post.data;
+const url = absoluteUrl(`/blog/${post.id}`);
+const og = await getImage({ src: image, width: 1200, height: 630, fit: "cover", format: "jpg", quality: 80 });
+
+const others = (await getCollection("blog")).filter((p) => p.id !== post.id).slice(0, 3);
+
+const fmt = (d: Date) => d.toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" });
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": `${url}#article`,
+  mainEntityOfPage: url,
+  headline: title,
+  description,
+  image: absoluteUrl(og.src),
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  inLanguage: "es-CO",
+  keywords: tags.join(", "),
+  author: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
+  publisher: { "@id": `${siteConfig.url}/#business` },
+  ...(source ? { citation: source } : {}),
+};
+---
+
+<Layout title={`${title} | Blog Banco de Prueba Juan`} description={description} image={og.src} type="article">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <Breadcrumbs items={[{ name: "Blog", url: "/blog" }, { name: title, url: `/blog/${post.id}` }]} />
+
+  <article class="px-10 md:px-16 pb-20 max-w-3xl mx-auto flex flex-col gap-8">
+    <header class="flex flex-col gap-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-primary">{title}</h1>
+      <p class="text-lg text-tertiary">{description}</p>
+      <p class="text-sm text-tertiary">
+        <time datetime={pubDate.toISOString()}>Publicado el {fmt(pubDate)}</time>
+        {updatedDate && <> · <time datetime={updatedDate.toISOString()}>Actualizado el {fmt(updatedDate)}</time></>}
+        · Por {siteConfig.name}
+      </p>
+      <Image
+        src={image}
+        alt={imageAlt}
+        width={1000}
+        widths={[480, 800, 1000]}
+        sizes="(min-width: 768px) 48rem, 100vw"
+        format="avif"
+        quality={60}
+        loading="eager"
+        fetchpriority="high"
+        class="w-full h-56 md:h-96 object-cover rounded-2xl shadow-lg"
+      />
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    {source && (
+      <p class="text-sm text-tertiary border-l-4 border-slate-300 pl-4">
+        Fuente consultada:
+        <a href={source} target="_blank" rel="noopener noreferrer nofollow" class="underline hover:text-primary">{sourceName ?? source}</a>
+      </p>
+    )}
+
+    <aside class="metal-card rounded-2xl shadow-lg p-6 flex flex-col md:flex-row md:items-center gap-4 justify-between">
+      <div>
+        <p class="font-semibold text-primary text-xl">¿Tu carro tiene este problema?</p>
+        <p class="text-sm text-tertiary">Diagnóstico claro en 10 a 30 minutos. Escríbenos por WhatsApp.</p>
+      </div>
+      <Button href={whatsappUrl} external icon="whatsapp" iconClass="w-6 h-6">Escríbenos</Button>
+    </aside>
+
+    {others.length > 0 && (
+      <nav aria-label="Otros artículos" class="flex flex-col gap-3">
+        <h2 class="text-2xl font-bold text-primary">Sigue leyendo</h2>
+        <ul class="flex flex-col gap-2">
+          {others.map((p) => (
+            <li><a href={`/blog/${p.id}`} class="underline text-primary hover:text-secondary">{p.data.title}</a></li>
+          ))}
+        </ul>
+      </nav>
+    )}
+  </article>
+</Layout>

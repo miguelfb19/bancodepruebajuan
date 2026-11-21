@@ -1,10 +1,17 @@
+---
+title: "¿Por qué se desgastan mal las llantas?"
+description: "El desgaste irregular de las llantas ocurre por mala alineación, presión incorrecta, fallas en la suspensión o falta de rotación. Cómo identificar cada tipo de desgaste y qué hacer."
+pubDate: 2025-06-27
+updatedDate: 2025-11-21
+image: "../../assets/images/blog/desgaste_llanta.avif"
+imageAlt: "Llanta con desgaste irregular en el borde"
+source: "https://centroamerica.michelin.com/auto/consejos/cambiar-llantas/desgaste-llantas"
+sourceName: "Michelin"
+tags: ["llantas", "desgaste", "alineación"]
+---
 El **desgaste irregular de las llantas** es uno de los problemas más comunes en la mecánica automotriz y afecta directamente la seguridad, estabilidad y economía del vehículo.
 
-<br>
-
 ## Principales causas de desgaste anormal
-
-<br>
 
 - **Mala alineación**: cuando las ruedas están desalineadas, una parte del neumático tiene más contacto con el suelo que la otra, lo que acelera el desgaste lateral.
 - **Inflado incorrecto**:
@@ -14,17 +21,14 @@ El **desgaste irregular de las llantas** es uno de los problemas más comunes en
 - **Falta de rotación de llantas**: al no rotarlas cada 8.000 a 10.000 km, las delanteras (que soportan más peso y dirección) se desgastan más rápido.
 - **Conducción agresiva**: frenadas bruscas, giros cerrados y exceso de velocidad en curvas también deterioran las llantas.
 
-<br>
-
 ## Tipos de desgaste común
-
-<br>
 
 - **Desgaste en un solo lado**: alineación incorrecta.
 - **Desgaste en los hombros**: baja presión.
 - **Desgaste en el centro**: sobrepresión.
 - **Desgaste en forma de “dientes de sierra”**: suspensión en mal estado o llantas mal balanceadas.
 
-<br>
-
 > Para prolongar la vida útil de las llantas, es esencial revisar mensualmente la presión, hacer rotaciones periódicas, alinear y balancear cuando sea necesario, y mantener la suspensión en buen estado.
+## Cuando el desgaste vuelve después de alinear
+
+Si ya alineaste, balanceaste y revisaste presión y suspensión, y el desgaste en un solo lado reaparece, la causa suele ser estructural: un golpe anterior, un hueco fuerte o una colisión pueden haber movido los puntos de anclaje de la suspensión. Un [banco de prueba](/servicios/banco-de-prueba) mide el chasis contra las especificaciones del fabricante y permite corregir la raíz del problema.

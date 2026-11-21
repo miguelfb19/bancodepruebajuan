@@ -1,48 +1,39 @@
 ---
-import { getImage } from "astro:assets";
+import { Image } from "astro:assets";
 import Button from "./ui/Button.astro";
 import { siteConfig } from "../config/site";
-import desktopSrc from "../assets/images/portada/portada.avif";
-import tabletSrc from "../assets/images/portada/portadaTablet.avif";
-import mobileSrc from "../assets/images/portada/portadaMobile.avif";
-
-// Art direction: una imagen por breakpoint (misma que usaban las clases bg-[url()]).
-const common = { format: "avif" as const, quality: 60 };
-const mobile = await getImage({ src: mobileSrc, width: 828, widths: [540, 828, 1080], ...common });
-const tablet = await getImage({ src: tabletSrc, width: 1024, widths: [768, 1024], ...common });
-const desktop = await getImage({ src: desktopSrc, width: 1920, widths: [1280, 1920, 2560], ...common });
+import portada from "../assets/images/portada/portada.avif";
 ---
 
-<header id="header" class="relative h-[calc(100dvh-100px)] overflow-hidden">
-  <picture>
-    <source media="(max-width: 639px)" srcset={mobile.srcSet.attribute} sizes="100vw" type="image/avif" />
-    <source media="(max-width: 1023px)" srcset={tablet.srcSet.attribute} sizes="100vw" type="image/avif" />
-    <img
-      src={desktop.src}
-      srcset={desktop.srcSet.attribute}
-      sizes="100vw"
-      width={desktop.attributes.width}
-      height={desktop.attributes.height}
-      alt="Técnico de Banco de Prueba Juan revisando el chasis de un vehículo en el taller de Pereira"
-      fetchpriority="high"
-      decoding="async"
-      class="absolute inset-0 w-full h-full object-cover object-top lg:object-center"
-    />
-  </picture>
+<header id="header" class="relative h-[calc(100dvh-100px)] min-h-[34rem] overflow-hidden">
+  <Image
+    src={portada}
+    alt="Técnico de Banco de Prueba Juan revisando el chasis de un vehículo elevado en el taller de Pereira"
+    width={1920}
+    widths={[640, 960, 1280, 1920, 2880]}
+    sizes="100vw"
+    format="avif"
+    quality={60}
+    loading="eager"
+    fetchpriority="high"
+    class="absolute inset-0 w-full h-full object-cover object-[68%_center] md:object-center"
+  />
 
-  <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-start p-10 md:p-16">
-    <div class="max-w-2xl">
-      <h1 class="text-4xl md:text-6xl font-bold text-white text-shadow mb-6">
+  <div class="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-primary/10 md:to-transparent"></div>
+
+  <div class="relative z-10 h-full flex flex-col justify-center gap-8 p-8 md:p-16 max-w-3xl">
+    <div>
+      <p class="uppercase tracking-[0.3em] text-xs md:text-sm text-white/80 mb-4">Enderezado y soldadura automotriz · Pereira</p>
+      <h1 class="text-4xl md:text-6xl font-bold text-white text-shadow mb-6 leading-tight">
         Especialistas en Enderezado de Chasis en Pereira
       </h1>
-      <p class="md:text-lg text-white text-shadow max-w-xl">
+      <p class="md:text-lg text-white/90 text-shadow max-w-xl">
         {siteConfig.yearsOfExperience} años de experiencia garantizando la seguridad y alineación perfecta de tu vehículo. Diagnóstico técnico confiable y garantía en cada trabajo.
       </p>
     </div>
-  </div>
-
-  <div class="absolute bottom-0 left-0 w-full md:w-1/2 h-[30%] flex max-md:flex-col gap-5 justify-center md:justify-around items-center px-10">
-    <Button href="/contact" class="w-full !shadow-white !shadow-xl">Contáctanos</Button>
-    <Button href="#blog" variant="btn-3" class="w-full !shadow-white !shadow-xl">Blog</Button>
+    <div class="flex max-sm:flex-col gap-4 w-full sm:max-w-md">
+      <Button href="/contact" class="w-full !shadow-white !shadow-xl">Contáctanos</Button>
+      <Button href="/servicios" variant="btn-3" class="w-full !shadow-white !shadow-xl">Nuestros servicios</Button>
+    </div>
   </div>
 </header>

@@ -1,49 +1,36 @@
 ---
 import { Image } from "astro:assets";
-import type { Article } from "../../interfaces/Article";
+import type { CollectionEntry } from "astro:content";
 import Button from "../ui/Button.astro";
-import Modal from "../ui/Modal.astro";
 
 interface Props {
-  article: Article;
+  post: CollectionEntry<"blog">;
+  /** Variante oscura para la sección de la home (fondo primary). */
+  eager?: boolean;
 }
 
-const { article } = Astro.props;
-const dialogId = `article-${article.slug}`;
-const titleId = `${dialogId}-title`;
+const { post, eager = false } = Astro.props;
+const href = `/blog/${post.id}`;
+const { title, description, image, imageAlt } = post.data;
 ---
 
-<article
-  class="rounded-2xl bg-gradient-to-bl from-30% from-slate-200 via-70% via-white to-tertiary/40 text-primary min-h-96 m-auto flex flex-col justify-between gap-5 p-5 md:p-16 text-center shadow-lg hover:scale-[102%] hover:shadow-xl transition-all duration-300"
->
-  <h3 class="font-bold text-xl">{article.title}</h3>
-  <p class="max-h-44 overflow-auto">{article.resume}</p>
-  <Button data-open-dialog={dialogId} aria-haspopup="dialog">Leer más</Button>
-</article>
-
-<Modal id={dialogId} variant="side" labelledBy={titleId}>
-  <article class="flex flex-col gap-4">
-    <h3 id={titleId} class="font-bold text-3xl">{article.title}</h3>
+<article class="metal-card rounded-2xl text-primary flex flex-col overflow-hidden shadow-lg hover:scale-[102%] hover:shadow-xl transition-all duration-300">
+  <a href={href} aria-label={`Leer: ${title}`}>
     <Image
-      src={article.image}
-      alt={`Imagen informativa sobre ${article.title} - Banco de Prueba Juan`}
-      width={1000}
-      widths={[480, 800, 1000]}
-      sizes="(min-width: 1024px) 60vw, 100vw"
+      src={image}
+      alt={imageAlt}
+      width={800}
+      widths={[480, 800]}
+      sizes="(min-width: 768px) 50vw, 100vw"
       format="avif"
       quality={60}
-      loading="lazy"
-      class="w-full h-44 md:h-96 object-cover rounded-lg mb-4"
+      loading={eager ? "eager" : "lazy"}
+      class="w-full h-48 object-cover"
     />
-    <div class="prose">
-      <article.content />
-    </div>
-    <p class="text-sm">
-      Conoce más sobre este tema en
-      <a href={article.ref} target="_blank" rel="noopener noreferrer nofollow" class="text-blue-700 underline">
-        la fuente original
-      </a>.
-    </p>
-    <Button variant="btn-2" class="m-auto my-6" data-close-dialog>Cerrar</Button>
-  </article>
-</Modal>
+  </a>
+  <div class="flex flex-col gap-4 p-6 md:p-8 text-center flex-1 justify-between">
+    <h3 class="font-bold text-xl"><a href={href}>{title}</a></h3>
+    <p class="text-tertiary">{description}</p>
+    <Button href={href} class="self-center">Leer más</Button>
+  </div>
+</article>
