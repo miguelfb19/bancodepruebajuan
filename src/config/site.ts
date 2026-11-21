@@ -22,7 +22,6 @@ export const siteConfig = {
     "Especialistas en enderezado de chasis, banco de prueba y soldadura estructural en Pereira. 15 años de experiencia garantizando la seguridad de tu vehículo.",
   defaultTitle:
     "Banco de Prueba Juan - Enderezado de Chasis y Soldadura Estructural en Pereira",
-  defaultImage: "/images/portada/portada.avif",
   logo: "/images/logo/logox500.avif",
 
   contact: {

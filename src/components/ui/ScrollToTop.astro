@@ -1,0 +1,34 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<button
+  id="scroll-to-top"
+  type="button"
+  aria-label="Volver arriba"
+  class="hidden fixed bottom-10 right-10 z-50 text-secondary bg-primary rounded-full border-none cursor-pointer p-0 shadow-lg"
+>
+  <Icon name="upArrowCircle" size={50} />
+</button>
+
+<script>
+  const btn = document.getElementById("scroll-to-top");
+  if (btn) {
+    let ticking = false;
+    const update = () => {
+      btn.classList.toggle("hidden", window.scrollY <= window.innerHeight);
+      ticking = false;
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+    btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  }
+</script>

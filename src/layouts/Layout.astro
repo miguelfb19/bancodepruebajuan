@@ -1,27 +1,30 @@
 ---
+import { getImage } from "astro:assets";
 import Footer from "../components/Footer.astro";
-import { TopMenu } from "../components/ui/TopMenu";
-import { ScrollToTop } from "../components/ui/ScrollToTop";
+import Header from "../components/Header.astro";
+import ScrollToTop from "../components/ui/ScrollToTop.astro";
 import { siteConfig, absoluteUrl, whatsappUrl, GOOGLE_SITE_VERIFICATION } from "../config/site";
 import { services } from "../constants/services";
+import portada from "../assets/images/portada/portada.avif";
 import "../styles/global.css";
+
+// OG/Twitter: JPG porque WhatsApp/Facebook no renderizan AVIF.
+const defaultOg = await getImage({ src: portada, width: 1200, height: 630, fit: "cover", format: "jpg", quality: 80 });
 
 interface Props {
   title?: string;
   description?: string;
+  /** URL (relativa o absoluta) de la imagen para redes. Debe ser JPG/PNG. */
   image?: string;
   type?: "website" | "article";
-  /** Imagen crítica (LCP) a precargar. Solo pasarla en la página que la usa above the fold. */
-  preloadImage?: string;
   noindex?: boolean;
 }
 
 const {
   title = siteConfig.defaultTitle,
   description = siteConfig.description,
-  image = siteConfig.defaultImage,
+  image = defaultOg.src,
   type = "website",
-  preloadImage,
   noindex = false,
 } = Astro.props;
 
@@ -36,7 +39,7 @@ const localBusinessSchema = {
   name: siteConfig.name,
   url: siteConfig.url,
   logo: absoluteUrl(siteConfig.logo),
-  image: [absoluteUrl(siteConfig.logo), absoluteUrl(siteConfig.defaultImage)],
+  image: [absoluteUrl(siteConfig.logo), imageURL],
   description: siteConfig.description,
   slogan: siteConfig.slogan,
   foundingDate: siteConfig.foundingYear,
@@ -134,6 +137,8 @@ const webSiteSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={imageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:locale" content={siteConfig.locale} />
 
@@ -149,26 +154,17 @@ const webSiteSchema = {
     <meta name="geo.position" content={`${geo.latitude};${geo.longitude}`} />
     <meta name="ICBM" content={`${geo.latitude}, ${geo.longitude}`} />
 
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-    {preloadImage && <link rel="preload" href={preloadImage} as="image" />}
-
-    <!-- Shoelace theme (requerido por sl-carousel / sl-drawer / sl-dialog) -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css"
-    />
-
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
     <slot name="head" />
   </head>
 
   <body class="antialiased">
-    <TopMenu client:load />
+    <Header />
     <main>
-      <ScrollToTop client:load />
       <slot />
     </main>
+    <ScrollToTop />
     <Footer />
   </body>
 </html>

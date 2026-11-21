@@ -1,0 +1,45 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Icon from "./Icon.astro";
+import type { IconName } from "../../assets/icons";
+
+type Variant = "btn-1" | "btn-2" | "btn-3";
+
+interface Props extends Omit<HTMLAttributes<"a">, "type">, Omit<HTMLAttributes<"button">, "type"> {
+  variant?: Variant;
+  /** Si se pasa href se renderiza <a>; si no, <button>. */
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  icon?: IconName;
+  iconClass?: string;
+  external?: boolean;
+}
+
+const {
+  variant = "btn-1",
+  href,
+  type = "button",
+  icon,
+  iconClass,
+  external = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const classes = [variant, className, "text-center flex gap-3 items-center justify-center"];
+const externalAttrs = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+---
+
+{
+  href ? (
+    <a href={href} class:list={classes} {...externalAttrs} {...rest}>
+      <slot />
+      {icon && <Icon name={icon} class={iconClass} />}
+    </a>
+  ) : (
+    <button type={type} class:list={classes} {...rest}>
+      <slot />
+      {icon && <Icon name={icon} class={iconClass} />}
+    </button>
+  )
+}

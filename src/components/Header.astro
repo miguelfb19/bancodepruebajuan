@@ -1,0 +1,80 @@
+---
+import Icon from "./ui/Icon.astro";
+import { siteConfig } from "../config/site";
+
+const links = [
+  { href: "/", label: "Inicio" },
+  { href: "/#services", label: "Servicios" },
+  { href: "/#blog", label: "Blog" },
+  { href: "/about", label: "Nosotros" },
+  { href: "/contact", label: "Contacto" },
+];
+---
+
+<div
+  id="menu"
+  class="sticky top-0 left-0 z-30 md:static flex w-full h-20 md:h-24 items-center px-5 bg-primary text-white border-b-2 border-tertiary"
+>
+  <a href="/" class="w-full" aria-label={`${siteConfig.name} - Inicio`}>
+    <img
+      src="/images/logo/logox500.avif"
+      alt={`Logo ${siteConfig.name}`}
+      class="w-14 h-14 bg-white rounded-full"
+      width="56"
+      height="56"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </a>
+
+  <nav class="hidden md:flex gap-4 font-semibold" aria-label="Principal">
+    {links.map((l) => <a class="menu-item" href={l.href}>{l.label}</a>)}
+  </nav>
+
+  <button
+    id="menu-open"
+    type="button"
+    class="flex md:hidden"
+    aria-label="Abrir menú"
+    aria-controls="mobile-menu"
+    aria-expanded="false"
+  >
+    <Icon name="barsMenu" size={30} />
+  </button>
+
+  <div
+    id="mobile-menu"
+    class="fixed top-0 right-0 z-20 h-dvh md:hidden flex flex-col w-full items-center px-5 pt-20 bg-primary text-white transition-transform duration-200 translate-x-full"
+    inert
+  >
+    <nav class="flex flex-col gap-10 font-semibold text-center" aria-label="Principal móvil">
+      {links.map((l) => <a class="menu-item" href={l.href} data-menu-link>{l.label}</a>)}
+    </nav>
+    <button id="menu-close" type="button" class="absolute top-5 right-5" aria-label="Cerrar menú">
+      <Icon name="closeX" size={35} />
+    </button>
+  </div>
+</div>
+
+<script>
+  const menu = document.getElementById("mobile-menu");
+  const openBtn = document.getElementById("menu-open");
+  const closeBtn = document.getElementById("menu-close");
+
+  const setOpen = (open: boolean) => {
+    if (!menu || !openBtn) return;
+    menu.classList.toggle("translate-x-full", !open);
+    menu.toggleAttribute("inert", !open);
+    openBtn.setAttribute("aria-expanded", String(open));
+    document.body.classList.toggle("overflow-hidden", open);
+    if (open) closeBtn?.focus();
+    else openBtn.focus();
+  };
+
+  openBtn?.addEventListener("click", () => setOpen(true));
+  closeBtn?.addEventListener("click", () => setOpen(false));
+  menu?.querySelectorAll("[data-menu-link]").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && menu && !menu.hasAttribute("inert")) setOpen(false);
+  });
+</script>

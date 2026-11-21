@@ -1,33 +1,33 @@
 # Documentación del Proyecto
 
 ## 🚀 Descripción
-Este proyecto es un sitio web moderno construido con Astro, React y TypeScript. El sitio web está diseñado para un taller mecánico/automotriz, incluyendo información sobre servicios, blog, galería de imágenes y formulario de contacto.
+Este proyecto es un sitio web estático construido con Astro y TypeScript, sin framework de UI en el cliente. El sitio web está diseñado para un taller mecánico/automotriz, incluyendo información sobre servicios, blog, galería de imágenes y formulario de contacto.
 
 ## 🛠️ Tecnologías Utilizadas
-- **Astro** (v5.10.0) - Framework principal
-- **React** (v19.1.0) - Para componentes interactivos
+- **Astro** (v5) - Framework principal, salida 100 % estática
 - **TypeScript** - Para tipado estático
-- **TailwindCSS** (v4.1.10) - Para estilos
-- **Shoelace** - Para componentes de UI
-- **Marked** - Para procesamiento de markdown
+- **TailwindCSS** (v4) - Para estilos
+- **astro:assets** - Optimización de imágenes (AVIF responsive) en build
+- Interactividad con `<dialog>` nativo, scroll-snap y scripts inline mínimos (sin React ni librerías de UI)
 
 ## 📁 Estructura del Proyecto
 
 ### Directorios Principales
 ```
 ├── src/                  # Código fuente principal
-│   ├── assets/          # Iconos y assets
-│   ├── components/      # Componentes reutilizables
-│   ├── constants/       # Datos constantes y contenido
+│   ├── assets/          # Iconos (icons.ts) e imágenes optimizables (images/)
+│   ├── components/      # Componentes Astro (ui/, services/, blog/, contact/...)
+│   ├── config/          # site.ts: fuente única de URL, NAP, horarios y redes
+│   ├── constants/       # Servicios, artículos, FAQ, contacto
 │   ├── interfaces/      # Interfaces TypeScript
-│   ├── layouts/         # Layouts de páginas
-│   ├── pages/          # Páginas del sitio
-│   ├── scripts/        # Scripts JavaScript
-│   ├── styles/         # Estilos globales
-│   └── utils/          # Utilidades
-├── public/              # Archivos estáticos
-│   ├── images/         # Imágenes del sitio
-│   └── robots.txt      # Configuración SEO
+│   ├── layouts/         # Layout base con metadatos y JSON-LD
+│   ├── pages/           # Páginas del sitio
+│   └── styles/          # Estilos globales
+├── public/              # Archivos estáticos servidos tal cual
+│   ├── images/logo/     # Logo (favicon y header)
+│   ├── robots.txt
+│   └── llms.txt
+└── vercel.json          # Headers de caché/seguridad y trailingSlash
 ```
 
 ### Componentes Principales
@@ -36,8 +36,8 @@ Este proyecto es un sitio web moderno construido con Astro, React y TypeScript. 
 - `Blog.astro` - Sección de blog
 - `FAQ.astro` - Preguntas frecuentes
 - `Footer.astro` - Pie de página
-- `TopMenu.tsx` - Menú de navegación
-- `MobileMenu.tsx` - Menú móvil
+- `Header.astro` - Menú de navegación (desktop y móvil)
+- `ui/Modal.astro` - Modal/drawer accesible con `<dialog>` nativo
 
 ## 🚀 Instalación y Uso
 
@@ -105,19 +105,19 @@ Los artículos del blog se encuentran en `src/constants/articles-content/` en fo
 ### Servicios
 La información de los servicios se gestiona en `src/constants/services.ts`
 
-### Contacto
-La información de contacto se mantiene en `src/constants/contact-info.ts`
+### Datos del negocio (NAP, horarios, redes, URL)
+Todo sale de `src/config/site.ts`. No duplicar estos valores en componentes.
 
 ## 🔧 Mantenimiento
 
 ### Añadir un Nuevo Artículo al Blog
 1. Crear el archivo Markdown en `src/constants/articles-content/`
-2. Añadir la imagen correspondiente en `public/images/blog/`
+2. Añadir la imagen en `src/assets/images/blog/` e importarla
 3. Actualizar el listado en `src/constants/articles.ts`
 
 ### Añadir un Nuevo Servicio
 1. Añadir la información en `src/constants/services.ts`
-2. Incluir la imagen correspondiente en `public/images/services/`
+2. Incluir la imagen en `src/assets/images/services/` e importarla
 
 ## 📱 Optimización para Dispositivos
 - Desktop: > 1024px

@@ -1,55 +1,95 @@
 ---
 import { Image } from "astro:assets";
 
-const images = [
-  "/images/galery/1.avif",
-  "/images/galery/2.avif",
-  "/images/galery/3.avif",
-  "/images/galery/4.avif",
-  "/images/galery/5.avif",
-  "/images/galery/6.avif",
-  "/images/galery/7.avif",
-  "/images/galery/8.avif",
-];
+const modules = import.meta.glob<{ default: ImageMetadata }>("../../assets/images/galery/*.avif", { eager: true });
+const images = Object.entries(modules)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, m]) => m.default);
 ---
 
-<section
-  id="galery"
-  class="bg-primary max-md:py-10 md:p-20 flex flex-col gap-16 opacity-0 transition-opacity duration-1000"
->
-  <h2 class="text-white text-5xl md:text-6xl text-center font-bold text-shadow">
-    Nuestro trabajo
-  </h2>
+<section id="galery" class="scroll-reveal bg-primary max-md:py-10 md:p-20 flex flex-col gap-16">
+  <h2 class="text-white text-5xl md:text-6xl text-center font-bold text-shadow">Nuestro trabajo</h2>
 
-  <sl-carousel pagination navigation mouse-dragging loop autoplay class="galery-carousel">
-    {
-      images.map((src: string, idx: number) => (
-        <sl-carousel-item key={idx}>
+  <div class="carousel" data-carousel aria-roledescription="carrusel" aria-label="Galería de trabajos realizados">
+    <div class="carousel__track" data-carousel-track>
+      {images.map((img, idx) => (
+        <figure class="carousel__slide" aria-roledescription="diapositiva" aria-label={`${idx + 1} de ${images.length}`}>
           <Image
-            src={src}
+            src={img}
             alt={`Trabajo de enderezado de chasis realizado por Banco de Prueba Juan - Imagen ${idx + 1}`}
-            loading="lazy"
+            width={1440}
+            widths={[480, 768, 1024, 1440]}
+            sizes="(min-width: 768px) calc(100vw - 10rem), 100vw"
+            format="avif"
+            quality={60}
+            loading={idx === 0 ? "eager" : "lazy"}
             class="w-full h-auto object-cover"
-            width={1920}
-            height={1080}
           />
-        </sl-carousel-item>
-      ))
-    }
-  </sl-carousel>
+        </figure>
+      ))}
+    </div>
+
+    <button type="button" class="carousel__btn carousel__btn--prev" data-carousel-prev aria-label="Imagen anterior">
+      <span aria-hidden="true">&#8249;</span>
+    </button>
+    <button type="button" class="carousel__btn carousel__btn--next" data-carousel-next aria-label="Imagen siguiente">
+      <span aria-hidden="true">&#8250;</span>
+    </button>
+
+    <div class="carousel__dots" role="tablist" aria-label="Seleccionar imagen">
+      {images.map((_, idx) => (
+        <button type="button" role="tab" class="carousel__dot" data-carousel-dot={idx} aria-label={`Ir a la imagen ${idx + 1}`} aria-selected={idx === 0 ? "true" : "false"} />
+      ))}
+    </div>
+  </div>
 </section>
 
-<style>
-  /* Ocultar la navegación en pantallas pequeñas (menos de 768px) */
-  @media (max-width: 767px) {
-    .galery-carousel::part(navigation-button) {
-      display: none !important;
-    }
-  }
-</style>
+<script>
+  document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((root) => {
+    const track = root.querySelector<HTMLElement>("[data-carousel-track]")!;
+    const slides = Array.from(track.children) as HTMLElement[];
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-carousel-dot]"));
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let current = 0;
+    let timer: number | undefined;
 
-<script
-  is:inline
-  type="module"
-  src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/components/carousel/carousel.js"
-/>
+    const goTo = (i: number) => {
+      current = (i + slides.length) % slides.length;
+      track.scrollTo({ left: slides[current].offsetLeft, behavior: prefersReduced ? "auto" : "smooth" });
+    };
+    const syncDots = () => {
+      dots.forEach((d, i) => d.setAttribute("aria-selected", String(i === current)));
+    };
+    const startAutoplay = () => {
+      if (prefersReduced) return;
+      stopAutoplay();
+      timer = window.setInterval(() => goTo(current + 1), 5000);
+    };
+    const stopAutoplay = () => window.clearInterval(timer);
+
+    root.querySelector("[data-carousel-prev]")?.addEventListener("click", () => goTo(current - 1));
+    root.querySelector("[data-carousel-next]")?.addEventListener("click", () => goTo(current + 1));
+    dots.forEach((d, i) => d.addEventListener("click", () => goTo(i)));
+
+    // Mantener índice sincronizado con el scroll manual (touch / rueda).
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            current = slides.indexOf(e.target as HTMLElement);
+            syncDots();
+          }
+        });
+      },
+      { root: track, threshold: 0.6 },
+    );
+    slides.forEach((s) => observer.observe(s));
+
+    root.addEventListener("pointerenter", stopAutoplay);
+    root.addEventListener("pointerleave", startAutoplay);
+    root.addEventListener("focusin", stopAutoplay);
+    root.addEventListener("focusout", startAutoplay);
+    document.addEventListener("visibilitychange", () => (document.hidden ? stopAutoplay() : startAutoplay()));
+    startAutoplay();
+  });
+</script>

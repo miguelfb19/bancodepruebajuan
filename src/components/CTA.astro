@@ -1,21 +1,11 @@
 ---
-import { Whatsapp } from "../assets/icons";
-import { CustomButton } from "./ui/CustomButton";
+import Button from "./ui/Button.astro";
 import { whatsappUrl } from "../config/site";
 ---
 
-<section id="cta" class="flex flex-col gap-20 py-20 px-10">
-  <h2
-    class="text-5xl md:text-6xl bg-[linear-gradient(to_right,var(--tw-gradient-from),var(--tw-gradient-from)_40%,var(--tw-gradient-to)_80%,var(--tw-gradient-to)_100%)] from-primary to-secondary text-transparent bg-clip-text text-center font-bold"
-  >
-    Llama y obtén asesoría inmediata
-  </h2>
-  <CustomButton
-    text={`Contáctanos ahora`}
-    link
-    href={whatsappUrl}
-    className="text-white text-2xl !py-8"
-    icon={Whatsapp}
-    iconClass="w-12 h-12 md:w-7 md:h-7"
-  />
+<section id="cta" class="scroll-reveal flex flex-col gap-20 py-20 px-10">
+  <h2 class="heading-gradient text-5xl md:text-6xl text-center font-bold">Llama y obtén asesoría inmediata</h2>
+  <Button href={whatsappUrl} external class="text-white text-2xl !py-8" icon="whatsapp" iconClass="w-12 h-12 md:w-7 md:h-7">
+    Contáctanos ahora
+  </Button>
 </section>

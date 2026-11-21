@@ -1,5 +1,5 @@
 ---
-import { Star } from "../../assets/icons";
+import Icon from "../ui/Icon.astro";
 
 const { customer } = Astro.props;
 ---
@@ -10,7 +10,8 @@ const { customer } = Astro.props;
   <div>
     <p class="font-semibold text-lg text-white">{customer.name}</p>
     <div class="text-yellow-400 flex justify-center items-center">
-      {Array.from({ length: 5 }).map(() => <Star />)}
+      <span class="sr-only">5 de 5 estrellas</span>
+      {Array.from({ length: 5 }).map(() => <Icon name="star" />)}
     </div>
   </div>
   <p class="italic text-white">{`"${customer.comment}"`}</p>

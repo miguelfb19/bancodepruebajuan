@@ -1,5 +1,6 @@
 ---
 import { contactInfo, type ContactItem } from "../../constants/contact-info";
+import Icon from "../ui/Icon.astro";
 
 const columns: ContactItem[][] = [contactInfo.slice(0, 3), contactInfo.slice(3)];
 ---
@@ -21,7 +22,7 @@ const columns: ContactItem[][] = [contactInfo.slice(0, 3), contactInfo.slice(3)]
             class="flex items-center gap-4 md:min-w-[22rem] rounded-2xl shadow-lg p-4 hover:scale-[101%] hover:shadow-xl transition-transform duration-200"
           >
             <div class="w-12 h-12 bg-gradient-to-tl from-primary/20 via-60% via-white to-primary/20 rounded-full flex items-center justify-center text-primary shadow-lg">
-              <info.icon size={25} />
+              <Icon name={info.icon} size={25} />
             </div>
             <div>
               <h3 class="font-semibold text-primary">{info.title}</h3>

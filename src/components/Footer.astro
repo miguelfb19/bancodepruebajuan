@@ -1,5 +1,5 @@
 ---
-import { Facebook, Instagram } from "../assets/icons";
+import Icon from "./ui/Icon.astro";
 import { siteConfig } from "../config/site";
 
 const { social, openingHoursDisplay, name } = siteConfig;
@@ -21,8 +21,8 @@ const year = new Date().getFullYear();
           decoding="async"
         />
         <div class="flex gap-2 items-center">
-          <a href={social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram de Banco de Prueba Juan"><Instagram /></a>
-          <a href={social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook de Banco de Prueba Juan"><Facebook /></a>
+          <a href={social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram de Banco de Prueba Juan"><Icon name="instagram" size={24} /></a>
+          <a href={social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook de Banco de Prueba Juan"><Icon name="facebook" size={24} /></a>
         </div>
       </div>
 

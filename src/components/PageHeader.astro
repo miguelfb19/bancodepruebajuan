@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+import establecimiento from "../assets/images/pages/establecimiento.avif";
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<div class="relative w-full h-64 md:h-96 flex items-center justify-center overflow-hidden">
+  <Image
+    src={establecimiento}
+    alt="Fachada del establecimiento de Banco de Prueba Juan en Pereira"
+    width={1600}
+    widths={[640, 1024, 1600, 2048]}
+    sizes="100vw"
+    format="avif"
+    quality={55}
+    loading="eager"
+    fetchpriority="high"
+    class="absolute inset-0 w-full h-full object-cover object-top"
+  />
+  <div class="absolute inset-0 bg-black/40"></div>
+  <h1 class="relative z-10 text-4xl md:text-6xl font-bold text-white text-center text-shadow">{title}</h1>
+</div>
